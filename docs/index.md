@@ -10,7 +10,7 @@ In this documentation you will find information about the installation and use o
 
 !!! Note "Citation"
     **Beacon v2 Reference Implementation: a toolkit to enable federated sharing of genomic and phenotypic data**.
-    Manuel Rueda, Roberto Ariosa, et al. _Submitted_ (2022). [DOI]()
+    Manuel Rueda, Roberto Ariosa, et al. _Submitted_ (2022). [DOI](./)
 
 ## Collaborators:
 ![Footer](img/footer.jpg)

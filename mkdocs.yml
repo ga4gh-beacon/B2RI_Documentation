@@ -11,6 +11,7 @@ markdown_extensions:
   - attr_list
 
 nav:
+  - Welcome: index.md
   - Introduction:
       - What is Beacon v2?: what-is-beacon.md
       - Which are the implementation options?: which-are-the-implementation-options.md

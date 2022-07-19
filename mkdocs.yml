@@ -19,7 +19,9 @@ nav:
   - Components:
       - Data ingestion: data-ingestion.md
       - BFF Genomic Variations Browser: bff-gv-browser.md
-      - API (Queries): api.md
+      - API (Queries): 
+            - Description: api.md
+            - Documentation: redoc-static.html
       - Synthetic dataset: synthetic-dataset.md
   - Tutorial:
       - Data beaconization: tutorial-data-beaconization.md

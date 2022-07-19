@@ -6,7 +6,7 @@
 
 Welcome to the documentation for the **Beacon v2 Reference Implementation**!
 
-In this documentation you will find information about the installation and use of a software that will enable "beaconization" of your data.
+In [this documentation](https://b2ri-documentation.readthedocs.io) you will find information about the installation and use of a software that will enable "beaconization" of your data.
 
 !!! Note "Citation"
     **Beacon v2 Reference Implementation: a toolkit to enable federated sharing of genomic and phenotypic data**.

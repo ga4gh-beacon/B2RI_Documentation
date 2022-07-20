@@ -8,10 +8,10 @@ The Beacon v2 API enables us to formulate queries to our data  (i.e., it acts as
 
 ![API figure](img/api.png)
 
-## Beacon v2 API Endpoints
+## API Endpoints
 
-!!! Note  "ReDoc documentation for Beacon v2 API"
-    You can access documentation for the [API here](redoc-static.html).
+!!! Note  "API interactive documentation"
+    Please find interactive API documentation from OpenAPI definitions [here](redoc-static.html).
 
 Formally, queries are carried out by sending `requests` to Beacon v2 API `endpoints`. The API follows [OpenAPI v3.0.2 specification](https://spec.openapis.org/oas/v3.0.2) for the endpoints, in conjunction with [JSON Schema v2020-12](https://json-schema.org/draft/2020-12) to define the _Framework_ and the _Models_. The specification uses JSON references (`$ref`) to reference internal (e.g., definitions) or external concepts/terms (e.g., GA4GH Variation Representation Specification ([VRS](https://vrs.ga4gh.org/en/stable))). 
 
@@ -35,7 +35,7 @@ Most of these endpoints return the configuration files that are in the Beacon co
 * individuals
 * runs
 
-## Beacon v2 API Requests
+## API Requests
 
 The requests can be carried out by using `GET` or `POST` [http](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) methods.
 
@@ -64,7 +64,7 @@ While the original Beacon v1 only provided Boolean (i.e. YES/NO) responses on qu
 | Count |    adds the total number of positive results found |
 | Record | returns details for every document|
     
-### Security levels
+### API Security levels
 
 Beacon v2 uses a 3-tiered access model: `public`, `registered`, and `controlled` access.
 

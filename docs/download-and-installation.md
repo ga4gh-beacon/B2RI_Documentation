@@ -6,7 +6,7 @@ The software consist of [several components](https://b2ri-documentation.readthed
 
 ## Method 1: Docker Image version
 
-A Docker image consisting of the **data ingestion tools** and the **API** can be obtained from [Docker Hub](https://hub.docker.com/r/mmoldes/beacon_reference_implementation).
+A Docker image consisting of the **data ingestion tools** plus the **API** can be obtained from [Docker Hub](https://hub.docker.com/r/mmoldes/beacon_reference_implementation).
 
 Please see the documentation there.
 

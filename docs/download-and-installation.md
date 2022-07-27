@@ -2,15 +2,25 @@
 
 The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation. 
 
-The software consist of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide **two methods** for download and installation.
+The software consist of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide **three methods** for download and installation.
 
-## Method 1: Containerized (Docker) version
+## Method 1: Docker Image version
 
-A Dockerfile can be obtained from [Docker Hub](https://hub.docker.com/r/mmoldes/beacon_reference_implementation).
+A Docker image consisting of the **data ingestion tools** and the **API** can be obtained from [Docker Hub](https://hub.docker.com/r/mmoldes/beacon_reference_implementation).
 
 Please see the documentation there.
 
-## Method 2: Non-containerized version
+## Method 2: Containerized versions 
+
+### Data ingestion tools
+
+Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#INSTALLATION).
+
+### Beacon v2 REST API
+
+We will be downloading the API from [this](https://github.com/EGA-archive/beacon2-ri-api/) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/README.md).
+
+## Method 3: Non-containerized version (Data ingestion tools only)
 
 This method requires a few more steps than the containerized one, but it gives the deployer more control over the tools.
 
@@ -140,12 +150,6 @@ Once installed you should two Docker processes: ```mongo``` and ```mongo-express
 
 !!! Important
     We will be installing **MongoDB** with a _single node/server_ configuration. Note that MongoDB allows for other topologies such as as _replica sets_ that we won't be covering in this documentation.
-
-
-### Beacon v2 REST API
-
-We will be downloading the API from [this](https://github.com/EGA-archive/beacon2-ri-api/) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/README.md).
-
 
 ## References
 

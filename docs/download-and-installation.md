@@ -16,8 +16,6 @@ Please see the documentation there.
 
 Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#INSTALLATION).
 
-MongoDB instructions can be found below. 
-
 ### Beacon v2 REST API
 
 We will be downloading the API from [this](https://github.com/EGA-archive/beacon2-ri-api/) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/README.md).

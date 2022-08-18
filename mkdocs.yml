@@ -1,0 +1,36 @@
+site_name: 'B2RI Documentation'
+site_description: 'Beacon v2 Reference Implementation Documentation'
+site_author: 'Manuel Rueda, PhD'
+copyright: '&copy; Copyright 2021-2022, B2RI Documentation Contributors'
+repo_name: 'B2RI_Documentation'
+
+extra_css: [css/theme_overrides.css]
+
+markdown_extensions:
+  - admonition
+  - attr_list
+
+nav:
+  - Introduction:
+      - What is Beacon v2?: what-is-beacon.md
+      - Which are the implementation options?: which-are-the-implementation-options.md
+  - B2RI Overview: beacon-v2-reference-implementation.md
+  - 'Download & Installation': download-and-installation.md
+  - Components:
+      - Data ingestion: data-ingestion.md
+      - MongoDB: download-and-installation#mongodb
+      - API (Queries): api.md
+      - Synthetic dataset: synthetic-dataset.md
+  - Tutorial:
+      - Data beaconization: tutorial-data-beaconization.md
+  - Help:
+      - Help: http://github.com/mrueda/Beacon2
+      - FAQs: faq.md
+  - About:
+      - About: about.md
+      - Citation: citation.md
+
+theme:
+    name: readthedocs
+    collapse_navigation: true
+    navigation_depth: 2

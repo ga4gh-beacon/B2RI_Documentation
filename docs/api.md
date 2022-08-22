@@ -4,36 +4,39 @@ The Beacon v2 API enables us to formulate queries to our data  (i.e., it acts as
 
 !!! Important "About Beacon v2 API"
     The Beacon v2 API follows [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) principles and thus is called a **REST API**. 
-    We will be using CRG's [API](https://dev.ega-archive.org/beacon-apis/cineca/) that consists of [synthetic data](./synthetic-dataset.md).
+    We will be using CRG's [API](https://ega-archive.org/beacon-apis/cineca/) that consists of [synthetic data](./synthetic-dataset.md).
 
 ![API figure](img/api.png)
 
 ## API Endpoints
 
-!!! Note  "API interactive documentation"
-    Please find interactive API documentation from OpenAPI definitions [here](redoc-static.html).
-
 Formally, queries are carried out by sending `requests` to Beacon v2 API `endpoints`. The API follows [OpenAPI v3.0.2 specification](https://spec.openapis.org/oas/v3.0.2) for the endpoints, in conjunction with [JSON Schema v2020-12](https://json-schema.org/draft/2020-12) to define the _Framework_ and the _Models_. The specification uses JSON references (`$ref`) to reference internal (e.g., definitions) or external concepts/terms (e.g., GA4GH Variation Representation Specification ([VRS](https://vrs.ga4gh.org/en/stable))). 
+
+!!! Note  "`Beacon v2 API` endpoints interactive documentation"
+    Please find interactive documentation from OpenAPI definition [here](./endpoints/beacon-v2.html).
 
 The endpoints are:
 
-* the *root* (`/`) and `/info` that must return information (metadata) about the Beacon service and the organization supporting it. [Try it](https://dev.ega-archive.org/beacon-apis/cineca/info/).
-* the `/service-info` endpoint that returns the Beacon metadata in the GA4GH Service Info schema.[Try it](https://dev.ega-archive.org/beacon-apis/cineca/service-info/).
-* the `/configuration` endpoint that returns some configuration aspects and the definition of the entry types (e.g. *genomic variants*, *biosamples*, *cohorts*, *individuals* and *runs*) implemented in that specific Beacon server or instance. [Try it](https://dev.ega-archive.org/beacon-apis/cineca/configuration).
+* the *root* (`/`) and `/info` that must return information (metadata) about the Beacon service and the organization supporting it. [Try it](https://ega-archive.org/beacon-apis/cineca/info/).
+* the `/service-info` endpoint that returns the Beacon metadata in the GA4GH Service Info schema.[Try it](https://ega-archive.org/beacon-apis/cineca/service-info/).
+* the `/configuration` endpoint that returns some configuration aspects and the definition of the entry types (e.g. *genomic variants*, *biosamples*, *cohorts*, *individuals* and *runs*) implemented in that specific Beacon server or instance. [Try it](https://ega-archive.org/beacon-apis/cineca/configuration).
 
-* the `/entry_types` endpoints that only return the section of the configuration that describes the entry types in that Beacon. [Try it](https://dev.ega-archive.org/beacon-apis/cineca/entry_types/).
-* the `/map` endpoint that returns a map (like a web *sitemap*) of the different endpoints implemented in that Beacon instance. [Try it](https://dev.ega-archive.org/beacon-apis/cineca/map/).
-* the `/filtering_terms` endpoint that returns a list of the filtering terms accepted by that Beacon instance. [Try it](https://dev.ega-archive.org/beacon-apis/cineca/filtering_terms/).
+* the `/entry_types` endpoints that only return the section of the configuration that describes the entry types in that Beacon. [Try it](https://ega-archive.org/beacon-apis/cineca/entry_types/).
+* the `/map` endpoint that returns a map (like a web *sitemap*) of the different endpoints implemented in that Beacon instance. [Try it](https://ega-archive.org/beacon-apis/cineca/map/).
+* the `/filtering_terms` endpoint that returns a list of the filtering terms accepted by that Beacon instance. [Try it](https://ega-archive.org/beacon-apis/cineca/filtering_terms/).
 
-Most of these endpoints return the configuration files that are in the Beacon configuration folder. From now on we will only pay attention the endpoint **entry_types**. These entry types (sometimes referred as _entities_, _resources_ or _Beacon v2 Models endpoints_) mirror the _collections_ we have stored in _MongoDB_. Our collections are:
+Most of these endpoints return the configuration files that are in the Beacon configuration folder. From now on we will only pay attention the endpoint **entry_types**. These entry types (sometimes referred as _entities_, _resources_ or _Beacon v2 Models endpoints_) mirror the _collections_ we have stored in _MongoDB_. Our collections are `analyses, biosamples, cohorts, datasets, genomicVariations, individuals` and `runs`.
 
-* analyses
-* biosamples
-* cohorts
-* datasets
-* genomicVariations
-* individuals
-* runs
+!!! Note  "`entry types` endpoints interactive documentation"
+    Please find interactive documentation for each **entry type** definitions below:
+
+    * [analyses](./endpoints/analyses.html)
+    * [biosamples](./endpoints/biosamples.html)
+    * [cohorts](./endpoints/cohorts.html)
+    * [datasets](./endpoints/datasets.html)
+    * [genomicVariations](./endpoints/genomicVariations.html)
+    * [individuals](./endpoints/individuals.html)
+    * [runs](./endpoints/runs.html)
 
 ## API Requests
 
@@ -77,7 +80,7 @@ Beacon v2 uses a 3-tiered access model: `public`, `registered`, and `controlled`
 
 !!! Warning "Beacon v2 instances and responses"
 
-    Our Beacon v2 [API](https://dev.ega-archive.org/beacon-apis/cineca/) is set up as **Granularity: Record** and **Level: PUBLIC**. 
+    Our Beacon v2 [API](https://ega-archive.org/beacon-apis/cineca/) is set up as **Granularity: Record** and **Level: PUBLIC**. 
     <br />
     Beacon **response** has 5 parts: `meta, responseSummary, response->resultSets.results, beaconHandovers`. From now own, we will focus on `resultSets.results` part of the API response.
 
@@ -85,17 +88,17 @@ Beacon v2 uses a 3-tiered access model: `public`, `registered`, and `controlled`
 
 Query -> GET all documents in endpoint `individuals`.
 
-https://dev.ega-archive.org/beacon-apis/cineca/individuals
+https://ega-archive.org/beacon-apis/cineca/individuals
 
-[Run query 1](https://dev.ega-archive.org/beacon-apis/cineca/individuals/)
+[Run query 1](https://ega-archive.org/beacon-apis/cineca/individuals/)
 
 ### Example query 2
 
 Query -> GET document for `id` HG00096 in endpoint `individuals`.
 
-https://dev.ega-archive.org/beacon-apis/cineca/individuals/HG00096/
+https://ega-archive.org/beacon-apis/cineca/individuals/HG00096/
 
-[Run query 2](https://dev.ega-archive.org/beacon-apis/cineca/individuals/HG00096/)
+[Run query 2](https://ega-archive.org/beacon-apis/cineca/individuals/HG00096/)
 
 ### Example query 3
 
@@ -123,7 +126,7 @@ We're going to scale-up a bit the complexity on this one. Here we'll introduce t
     <br />
 
     **Filtering terms** are used to further refine queries. There exists four types of [filters](https://docs.genomebeacons.org/filters) `Bio-ontology`, `Custom`, `Numerical` and `Alphanumerical`. Anything that can be represented by an ontology term would go into the filters section.
-    Filtering terms are specific to each Beacon implementation. You can check [here](https://dev.ega-archive.org/beacon-apis/cineca/filtering_terms) those implemented in the B2RI.
+    Filtering terms are specific to each Beacon implementation. You can check [here](https://ega-archive.org/beacon-apis/cineca/filtering_terms) those implemented in the B2RI.
 
 ***QUERY:*** I have this mutation **p.Met734Val** in gene **_SCN5A_**, does Beacon XYZ also have this variant?
 

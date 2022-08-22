@@ -101,7 +101,7 @@ The included [CINECA_synthetic_cohort_EUROPE_UK1](https://www.cineca-project.eu/
 
 ### Does it come with an UI (user interface)? 
 
-The simple answer is no. All tools are `command-line` based. But, we added a [browser](./bff-gv-browser.md) to visualize the contents of `genomicVariations` collection. This simple tool will (likely) cover many of the typical needs of a clinical geneticist/bioinformatician.
+The simple answer is no. All tools are `command-line` based. But, we added a [browser](./data-ingestion.md#bff-genomic-variations-browser) to visualize the contents of `genomicVariations` collection. This simple tool will (likely) cover many of the typical needs of a clinical geneticist/bioinformatician.
 
 The long answer is that at [CRG](https://www.crg.eu/) we're working on a full UI to work on top of the REST API. 
 

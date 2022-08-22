@@ -18,7 +18,7 @@ nav:
   - 'Download & Installation': download-and-installation.md
   - Components:
       - Data ingestion: data-ingestion.md
-      - MongoDB: download-and-installation#mongodb
+      - MongoDB: download-and-installation#mongodb-installation
       - API (Queries): api.md
       - Synthetic dataset: synthetic-dataset.md
   - Tutorial:

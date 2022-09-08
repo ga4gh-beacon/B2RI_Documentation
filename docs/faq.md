@@ -38,6 +38,10 @@ Having said that, in ocassions researchers have **internal annotations** that ca
 
 Yes, there is. Please check the [manual](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator) of the utility `bff-validator`.
 
+### `bff-validator` specification mismatches
+
+By default, `bff-validator` will validate your data against the default schemas installed with your `beacon2-ri-tools` version. In this regard, it can happen that `bff-validator` gives you warnings on things that look OK [elsewhere](https://github.com/ga4gh-beacon/beacon-v2/issues). An example of this could be warnings on objects matching more than one possibility in `oneOf` keywords. If this happens just use the flag `--ignore-validation` once you are ready to create your `.json` files. 
+
 ### Do you load all variations present in a VCF file?
 
 Yes, we do not apply any filter such as using `FILTER` or `QUAL` fields (but we do store those values in case they need to be used _a posteriori_).

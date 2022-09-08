@@ -32,15 +32,8 @@ When you run it, it's very likely that you'll find have errors/warnings on your 
 
 ![BFF validator](img/bff-validator.png)
 
-!!! Danger "Common errors" 
-
-    **Unicode**
-
-    [Unicode](https://en.wikipedia.org/wiki/UTF-8) characters are allowed as _values_ for the cells. However, if you are copy-pasting from other sources, sometimes "strange" characters are randomly introduced in places where they should not be. If `bff-validator` is giving you errors and you can't figure out how to solve them use the flag `--ignore-validation` and take a look to the _JSON_ files created. Once you spot the error(s), please fix the original Excel file and re-run the validation. See extended information [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
-    
-    **Specification mismatches**
-
-    [Beacon v2 Models specification](https://github.com/ga4gh-beacon/beacon-v2/tree/main/models) is continously evolving. The changes are not only to _add new and better features_ but also to _fix previous problems_. In this regard, it can happen that `bff-validator` gives some warnings on things that look OK (such as in properties `oneOf`,`anyOf`, etc. coming from Phenopacket specification). If this happens just use the flag `--ignore-validation` once you are ready to create your `.json` files.
+!!! Danger "About Unicode" 
+    [Unicode](https://en.wikipedia.org/wiki/UTF-8) characters are allowed as _values_ for the cells. However, if you are copy-pasting from other sources, sometimes "strange" characters are randomly introduced in places where they should not be. If `bff-validator` is giving you errors and you can't figure out how to solve them use the flag `--ignore-validation` and take a look to the _JSON_ files created. Once you spot the error(s), please fix the original Excel file and re-run the validation without the flag. See extended information [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
     
 At some point you won't get any errors. By now the script should have created 6 text files (what we call the **Beacon Friendly Format**). The files are in **JSON** format (JSON arrays) and will be used later (STEP 3).
 

@@ -46,21 +46,18 @@ The data ingestion tools include a few utilities that will help you with data pr
 * [bff-queue](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_queue)
 * [bff-validator](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator)
 * [models2xlsx](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/models2xlsx)
-* [pxf2bff (experimental)](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/pxf2bff)
+* [pfx2bff (experimental)](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/pfx2bff)
                                                                                                         
 ## BFF Genomic Variations Browser
 
 !!! Warning "Important"
     BFF Genomic Variations Browser **is not a full UI** for Beacon v2 as it does not allow for cross-queries to other collections (e.g., individuals).
 
-
 **BFF Genomic Variations Browser** enables user-friendly visualization of ```genomicVariations``` documents (stored as a JSON array) via dynamic tables embedded in HTML.
 
 ![BFF GV Browser](img/BFF-genomic-variations-browser.png)
 
-
 The browser's [developer](./about.md) has first-hand experience in **Clinical Genomics** and thought that the HTML will be a nice addition for some users.
-
 
 BFF Genomic Variations Browser only displays a subset o variants (i.e., those having **HIGH** value on the **Annotation Impact** field).
 
@@ -71,7 +68,6 @@ BFF Genomic Variations Browser will display the filtered variants according to a
 The resulting HTML are **local**. They load a local JSON file and display it as a searchable table. 
 
 ![Screenshoot of the BFF Genomic Variations Browser](img/snapshot-BFF-genomic-variations-browser.png)
-
 
 The table allows for **columns re-ordering** and the **search** box accepts complex _regex_ e.g. ```rs12(3|4) (tp53|ace2) splice```.
 

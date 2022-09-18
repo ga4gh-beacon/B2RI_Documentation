@@ -46,7 +46,7 @@ The data ingestion tools include a few utilities that will help you with data pr
 * [bff-queue](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_queue)
 * [bff-validator](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator)
 * [models2xlsx](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/models2xlsx)
-* [pfx2bff (experimental)](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/pfx2bff)
+* [pxf2bff (experimental)](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/pxf2bff)
                                                                                                         
 ## BFF Genomic Variations Browser
 

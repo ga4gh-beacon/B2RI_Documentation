@@ -36,7 +36,7 @@ Having said that, in ocassions researchers have **internal annotations** that ca
 
 ### Is there any alternative to the XLSX to introduce metadata/phenotypic data?
 
-Yes, there is. Please check the [manual](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator) of the utility `bff-validator`.
+Yes, there is. You can use CSV or JSON directly as input. Please check the [manual](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator) of the utility `bff-validator`.
 
 ### `bff-validator` specification mismatches
 
@@ -93,7 +93,7 @@ _A priori_, [Beacon v2](http://docs.genomebeacons.org/) specification allows for
 
 ### Is the response data encrypted?
 
-The response is encripted by the `https` protocol.
+By default the API will start as `http`. The request/response can be encripted by adding the `https` protocol on top.
 
 ## B2RI (General)
 

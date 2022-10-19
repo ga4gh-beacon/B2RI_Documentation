@@ -1,5 +1,3 @@
-[![Documentation Status](https://readthedocs.org/projects/b2ri-documentation/badge/?version=latest)](https://b2ri-documentation.readthedocs.io/en/latest/?badge=latest)
-
 # Beacon v2 Reference Implementation Documentation
 
 !!! Important "Approved GA4GH Standard"

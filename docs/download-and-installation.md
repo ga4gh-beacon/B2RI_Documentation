@@ -28,7 +28,7 @@ Please follow the instructions provided in the [README](https://github.com/EGA-a
 !!! Warning "Message"
     This alternative requires a few more steps than the containerized one, but it gives the deployer more control over the tools.
 
-We will download the **data ingestion tools** from [this](https://github.com/EGA-archive/beacon2-ri-tools) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md).
+We will download the **data ingestion tools** from [this](https://github.com/EGA-archive/beacon2-ri-tools) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools#non-containerized).
  
 The data ingestion tools need **external software** to function:
 
@@ -41,12 +41,12 @@ The data ingestion tools need **external software** to function:
 
 We will download _BCFtools_, _SnpEff_ and _MongoDB_ utilities from a public `ftp` server (`ftp://xfer13.crg.eu`) located at CRG. We will use `wget` to get the five parts (~65G total). Each part should take around 20 min to download:
 
-    wget ftp://xfer13.crg.eu:221/beacon2_data.md5
-    wget ftp://xfer13.crg.eu:221/beacon2_data.part1
-    wget ftp://xfer13.crg.eu:221/beacon2_data.part2
-    wget ftp://xfer13.crg.eu:221/beacon2_data.part3
-    wget ftp://xfer13.crg.eu:221/beacon2_data.part4
-    wget ftp://xfer13.crg.eu:221/beacon2_data.part5
+    wget ftp://FTPuser:FTPusersPassword@xfer13.crg.eu:221/beacon2_data.md5
+    wget ftp://FTPuser:FTPusersPassword@xfer13.crg.eu:221/beacon2_data.part1
+    wget ftp://FTPuser:FTPusersPassword@xfer13.crg.eu:221/beacon2_data.part2
+    wget ftp://FTPuser:FTPusersPassword@xfer13.crg.eu:221/beacon2_data.part3
+    wget ftp://FTPuser:FTPusersPassword@xfer13.crg.eu:221/beacon2_data.part4
+    wget ftp://FTPuser:FTPusersPassword@xfer13.crg.eu:221/beacon2_data.part5
 
 Once you have downloaded the 5 parts and the checksum file (\*.md5) please check that they are complete:
 

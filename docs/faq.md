@@ -117,6 +117,10 @@ Nope at this moment (Apr-2022). Currently, there is a Beacon scout team actively
 
 The issue with having a SQL-based is that, if you want to be **Beacon v2 response _compliant_** you will need to convert your tables-based data to the JSON Schema of the [Beacon v2 Models](http://docs.genomebeacons.org). Intrepid implementers are able to do this transformation (likely) at the API level. However, a much simpler alternative (and actually the one we've seen the most in healthcare systems) is that people perform a `dump` (data export) of the subset of data they want to share and then use [B2RI tools](tutorial-data-beaconization.md) to convert this tabular data to Beacon v2 format and use the included REST API. So yes, if you follow this path you will be still using our Reference Implementation.
 
+### Should I update to the `latest` version?
+
+Yep. We recommend checking our Github repositories ([beacon2-ri-tools](https://github.com/EGA-archive/beacon2-ri-tools) and [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)) and downloading the latest version. If the version it's in GitHub is because it passed our test and it's ready to be used. In principle, a simple `git pull` will do the update for both containerized and non-containerized versions.
+Now, the version number matches that of the [Beacon v2 specification](https://github.com/ga4gh-beacon/beacon-v2). When the latter changes, B2RI version will change as well.
 
 ### Can I contribute to the GitHub repositories?
 

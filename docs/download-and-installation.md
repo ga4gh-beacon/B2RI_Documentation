@@ -1,6 +1,6 @@
 # Summary
 
-The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation. 
+The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation. hello!
 
 The software consist of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
 

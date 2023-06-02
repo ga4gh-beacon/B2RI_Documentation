@@ -1,13 +1,43 @@
 # Tutorial (Data "beaconization")
 
+!!! Warning "Note"
+    If your data is already in json format (the bff), you can go directly to STEP 4).
+
+In this tutorial it is expected to already have the Data ingestion tools and Beacon V2 REST API downloaded, installed and set up following the instructions in [Download & Installation](https://b2ri-documentation.readthedocs.io/en/latest/download-and-installation/).
+
 Let's start by the simplest case. Imagine that you have:
 
-  * **Metadata** (including phenotypic data) in your system, labeled according to your internal nomenclature.
+  * **Metadata** (including phenotypic data) in your system, labelled according to your internal nomenclature.
   *  A **VCF** file.
+
+## Prevous steps
+
+#### Connect to the container
+
+The beacon container is running in detached mode or in the background. To connect, you should invoke from your terminal:
+
+    docker exec -ti beacon2-ri-tools_name bash
+
+!!! Important
+    If you need to copy your data inside the beacon2-ri-tools container you can use the next command outside the container or create a mounted volume between the container and the host machine.
+
+Then:
+
+    docker cp your_data.vcf.gz beacon2-ri-tools container__name:/your_data.vcf.gz
+
+!!! Warning "Note"
+    The `container_name`, is the id of the container itself. To know it you can type docker ps and look for the name of the container. This tutorial could be different depending on the method of installation (method 1: deploy_beacon-ri-tools_1 / method 2: beacon-ri-tools).
+
+To see all the running container names, execute the next command:
+
+    docker ps-a
+
+Now you should be inside the beacon2-ri-tools container to start the Data beaconization.
+
 
 ## STEP 1
 
-First of all, we are going to convert your metadata (sequencing methodology, bioinformatics tools, phenotypic data, etc.) to the format of the [Beacon v2 Models](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema). As **input** we will be using this [XLSX](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx) template.
+First, we are going to convert your metadata (sequencing methodology, bioinformatics tools, phenotypic data, etc.) to the format of the [Beacon v2 Models](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema). As **input**, we will be using this [XLSX](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx) template.
 
 !!! Important "About the XLSX template"
     The XLSX template consists of **seven sheets** that match the [Beacon v2 Models](http://docs.genomebeacons.org/).
@@ -55,7 +85,10 @@ The VCF file has to be gzipped (or bgzipped). What we are going to do it's to an
 
 Here we are using `beacon` script in mode ***vcf***. This mode is one of the three available [vcf|mongodb|full]. 
 
-The parameters file is needed if you want to change the default values. Note that you must provide the **reference genome** (unless you're using `hg19` which is the default one) that was used to create your VCF. See all the script options [here](https://github.com/EGA-archive/beacon2-ri-tools#how-to-run-beacon).
+The parameters file is optional if you want to use the default value (hg19) but it is needed if you want to change them. Note that you must provide the **reference genome** (unless you're using `hg19` which is the default one) that was used to create your VCF. See all the script options [here](https://github.com/EGA-archive/beacon2-ri-tools#how-to-run-beacon).
+
+The `param_file` should look something like this:
+genome:hs37d5g
 
 !!! Important
     **Note about timing**: We made the script _as fast as we possibly could_ with a scripting language. In this regard, the processing time scales linearly with the #variants, but it's also affected by the #samples. For instance, 1M variants with 2,500 samples will take around ~20-25 min.
@@ -79,7 +112,7 @@ For doing this we will use again `beacon` script, but this time in mode ***mongo
 
 Let's assume that we have the 6 files from STEP 1 in the directory `my_bff_dir` and the file from STEP 2 at `beacon_XXXXXXX`. 
 
-We will add these values to the parameters file:
+We will add these values to a new parameters file:
 
 ```yaml
 ---
@@ -96,11 +129,21 @@ bff:
   genomicVariationsVcf: beacon_XXXXXXX/vcf/genomicVariationsVcf.json.gz
 ```
 
-Finally you execute this command
+Finally, you execute this command
 
     ./beacon mongodb -p param_file
          |      |      |
          exe    mode   paramaters file.
+
+An alternative to using `mongodb`, in case you already have it installed, is using `mongoimport`, which does not need a parameters file and uses the following commands:
+
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file analyses.json --collection analyses 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file biosamples.json --collection biosamples 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file cohorts.json --collection cohorts 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file datasets.json --collection datasets 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file individuals.json --collection individuals 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file runs.json --collection runs 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file genomicVariationsVcf.json --collection genomicVariations   
 
 If everything goes well, all your data should be loaded into an instance of MongoDB.
 
@@ -109,8 +152,30 @@ If everything goes well, all your data should be loaded into an instance of Mong
 
 Congratulations! You can now go to the STEP 4.
 
+!!! Warning "Note"
+    To exit this container you just need to type "exit".
 
 ## STEP 4
+
+You can create the necessary indexes running the following Python script:
+
+    docker exec beacon python beacon/reindex.py
+
+#### Fetch the ontologies and extract the filtering terms 
+
+This step consists of analyzing all the collections of the Mongo database for first extracting the ontology OBO files and then filling the filtering terms endpoint with the information of the data loaded in the database.
+
+You can automatically fetch the ontologies and extract the filtering terms running the following script: 
+
+    docker exec beacon python beacon/db/extract_filtering_terms.py 
+
+#### Get descendant and semantic similarity terms 
+
+If you have the ontologies loaded and the filtering terms extracted, you can automatically get their descendant and semantic similarity terms running the following script: 
+
+    docker exec beacon python beacon/db/get_descendants.py 
+
+## STEP 5
 
 Start making queries with the [API](./api.md).
 

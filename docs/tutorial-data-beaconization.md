@@ -10,27 +10,27 @@ Let's start by the simplest case. Imagine that you have:
   * **Metadata** (including phenotypic data) in your system, labelled according to your internal nomenclature.
   *  A **VCF** file.
 
-## Prevous steps
+## Previous steps
 
 #### Connect to the container
 
 The beacon container is running in detached mode or in the background. To connect, you should invoke from your terminal:
 
-    docker exec -ti beacon2-ri-tools_name bash
+    docker exec -ti beacon2-ri-tools bash
 
 !!! Important
     If you need to copy your data inside the beacon2-ri-tools container you can use the next command outside the container or create a mounted volume between the container and the host machine.
 
 Then:
 
-    docker cp your_data.vcf.gz beacon2-ri-tools container__name:/your_data.vcf.gz
+    docker cp your_data.vcf.gz beacon2-ri-tools:/your_data.vcf.gz
 
 !!! Warning "Note"
     The `container_name`, is the id of the container itself. To know it you can type docker ps and look for the name of the container. This tutorial could be different depending on the method of installation (method 1: deploy_beacon-ri-tools_1 / method 2: beacon-ri-tools).
 
 To see all the running container names, execute the next command:
 
-    docker ps-a
+    docker ps -a
 
 Now you should be inside the beacon2-ri-tools container to start the Data beaconization.
 

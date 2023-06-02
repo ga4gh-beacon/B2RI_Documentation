@@ -24,7 +24,7 @@ Clone beacon2-ri-api GitHub repository.
 
 From now on, the commands should be executed from the deploy directory.
 
-    cd beacon2-ri-api /deploy
+    cd beacon2-ri-api/deploy
 
 Light up all the containers.
 
@@ -68,9 +68,9 @@ Download the `Dockerfile` from [Github](https://github.com/EGA-archive/beacon2-r
 
     wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerfile 
 
-Then, execute the following commands:
+Then, execute the following commands to build the container (~1.1G):
 
-    docker build -t crg/beacon2_ri:latest . # build the container (~1.1G)
+    docker build -t crg/beacon2_ri:latest .
 
 !!! Important
     Docker containers are fully isolated. If you think you'll have to mount a volume to the container, please read the section [Mounting Volumes](https://docs.docker.com/storage/volumes/) before proceeding further.
@@ -102,8 +102,10 @@ All the commands should be executed from the deploy directory.
 
 Light up only the containers needed:
 
-    docker network create my-app-network 
-    docker-compose up -d --build training-ui db mongo-express beacon permissions idp idp-db
+```bash 
+docker network create my-app-network
+docker-compose up -d --build training-ui db mongo-express beacon permissions idp idp-db
+```
 
 With `mongo-express` we can see the contents of the database at http://localhost:8081.
 
@@ -150,8 +152,10 @@ Now join the 5 parts by typing (note that momentarily we'll be using ~128G):
 
 OK, everything ready to untar the file:
 
-    tar -xvf beacon2_data.tar.gz
-    cd snpeff/v5.0 ; ln -s GRCh38.99 hg38 # In case the symbolic link does not exist already
+``` bash
+tar -xvf beacon2_data.tar.gz
+cd snpeff/v5.0 ; ln -s GRCh38.99 hg38 # In case the symbolic link does not exist already
+```
 
 *NB*: Feel free now to erase ```beacon2_data.tar.gz``` if needed.
 

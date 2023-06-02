@@ -48,7 +48,7 @@ Yes, we do not apply any filter such as using `FILTER` or `QUAL` fields (but we 
 
 ### Do you have any recommendations in how to speed up the data ingestion process?
 
-Usually, metadata/phenoclic data ingestion is fast as we'll be dealing with thousands of values (or dozens of thousands). Processing this should not take more than seconds/minutes.
+Usually, metadata/phenoclinic data ingestion is fast as we'll be dealing with thousands of values (or dozens of thousands). Processing this should not take more than seconds/minutes.
 
 **VCF processing** is what takes more time, in particular if you have **WGS** (e.g., you can have > 100M variants and thousands of samples). These are some recommendations:
 
@@ -93,7 +93,7 @@ _A priori_, [Beacon v2](http://docs.genomebeacons.org/) specification allows for
 
 ### Is the response data encrypted?
 
-By default the API will start as `http`. The request/response can be encripted by adding the `https` protocol on top.
+By default, the API will start as `http`. The request/response can be encripted by adding the `https` protocol on top.
 
 ## B2RI (General)
 

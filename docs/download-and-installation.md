@@ -1,6 +1,6 @@
 # Summary
 
-The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation. hello!
+The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation.
 
 The software consists of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
 
@@ -16,7 +16,7 @@ Before starting, it will be necessary to install:
 
 ### Method 1: All containers in one
 
-##### Setting up all the containers, beacon2-ri-tools and beacon2-ri-api together using the [beacon2-ri-repository](https://github.com/EGA-archive/beacon2-ri-api).
+##### Setting up all the containers, beacon2-ri-tools and beacon2-ri-api together using the [beacon2-ri-api repository](https://github.com/EGA-archive/beacon2-ri-api).
 
 Clone beacon2-ri-api GitHub repository.
 
@@ -64,7 +64,7 @@ A set of Docker images can be obtained from [Docker Hub](https://hub.docker.com/
 
 ##### Option 2: Build the container from the Dockerfile in the GitHub repository
 
-Download the `Dockerfile` from Github by typing:
+Download the `Dockerfile` from [Github](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/Dockerfile) by typing:
 
     wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerfile 
 
@@ -80,17 +80,38 @@ Then:
     docker run -tid --name beacon2-ri-tools crg/beacon2_ri:latest # run the image detached
     docker exec -ti beacon2-ri-tools bash # connect to the container interactively
 
-#### Deploying external tools needed
+#### Deploy external tools needed
 
-This step will inject the external tools and DBs into the image and modify the configuration files. It will also run a test to check that the installation was succesful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
+This step will inject the external tools and DBs into the image and modify the [configuration](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#readme-md-setting-up-beacon) files. It will also run a test to check that the installation was succesful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
 
     bash beacon2-ri-tools/BEACON/bin/deploy_external_tools.sh
 
-To see more information regarding the Data ingestion tools repository, Pplease follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#containerized).
+To see more information regarding the Data ingestion tools repository, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#containerized).
 
 #### Beacon v2 REST API (beacon2-ri-api)
 
-Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/deploy/README.md).
+Containerized options to install the [Data ingestion tools repository](https://github.com/EGA-archive/beacon2-ri-tools).
+
+Clone beacon2-ri-api GitHub repository.
+
+    git clone https://github.com/EGA-archive/beacon2-ri-api.git
+
+All the commands should be executed from the deploy directory.
+
+    cd deploy
+
+Light up only the containers needed:
+
+    docker network create my-app-network 
+    docker-compose up -d --build training-ui db mongo-express beacon permissions idp idp-db
+
+With `mongo-express` we can see the contents of the database at http://localhost:8081.
+
+For more installation options, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/deploy/README.md). 
+
+Now you should have the two things downloaded, installed and set up: the beacon2-ri-tools and the beacon2-ri-api. Together (Method 1) or independently (Method 2) 
+
+You can start transforming your data to BFF and loading it to the database following the [Data beaconization tutorial](https://b2ri-documentation.readthedocs.io/en/latest/tutorial-data-beaconization/).
 
 ## Non containerized (data ingestion tools)
 

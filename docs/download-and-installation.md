@@ -1,27 +1,119 @@
 # Summary
 
-The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation. 
+The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation.
 
-The software consist of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
+The software consists of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
+
+!!! Note "Tip"
+    The data ingestion tools can function without the API, so you can download one without the other.
+
+Before starting, it will be necessary to install:
+
+* [Mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/)
+* [Docker + Docker-compose](https://docs.docker.com/engine/install/ubuntu/)
 
 ## Containerized (Recommended)
 
-### Method 1: Docker Hub
+### Method 1: All containers in one
 
-A set of Docker images can be obtained from [Docker Hub](https://hub.docker.com/r/beacon2ri/beacon_reference_implementation). Please see the documentation there.
+##### Setting up all the containers, beacon2-ri-tools and beacon2-ri-api together using the [beacon2-ri-api repository](https://github.com/EGA-archive/beacon2-ri-api).
+
+Clone beacon2-ri-api GitHub repository.
+
+    git clone https://github.com/EGA-archive/beacon2-ri-api.git
+
+From now on, the commands should be executed from the deploy directory.
+
+    cd beacon2-ri-api/deploy
+
+Light up all the containers.
+
+    docker network create my-app-network
+    docker-compose up -d --build
+
+##### Deploying external tools in beacon2-ri-tools container
+
+This step will inject the external tools and DBs into the image and modify the configuration files. It will also run a test to check that the installation was successful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
+
+Go inside beacon2-ri-tools container.
+
+    docker exec -it deploy_beacon-ri-tools_1 bash
+    bash /usr/share/beacon-ri/beacon2-ri-tools/BEACON/bin/deploy_external_tools.sh
+
+!!! Important
+    The container's name should be similar to `deply_beacon-ri-tools_1`. It can be extracted from docker ps (`docker exec–it<container_name>bash`)
+
+With `mongo-express` it is possible to see the contents of the data base at http://localhost:8081.
+
+For more installation options, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/deploy/README.md).
 
 ### Method 2: Independent containers
+
+Download the beacon2-ri-tools container and the beacon2-ri-api container independently.
 
 !!! Note "Tip"
     The data ingestion tools can function without the API, so you can download one without the other.
 
 #### Data ingestion tools (beacon2-ri-tools)
 
-Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#containerized).
+Containerized options to install the [Data ingestion tools repository](https://github.com/EGA-archive/beacon2-ri-tools).
+
+##### Option 1: Build the container from Docker Hub
+
+A set of Docker images can be obtained from [Docker Hub](https://hub.docker.com/r/beacon2ri/beacon_reference_implementation). Please see the documentation there. 
+
+##### Option 2: Build the container from the Dockerfile in the GitHub repository
+
+Download the `Dockerfile` from [Github](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/Dockerfile) by typing:
+
+    wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerfile 
+
+Then, execute the following commands to build the container (~1.1G):
+
+    docker build -t crg/beacon2_ri:latest .
+
+!!! Important
+    Docker containers are fully isolated. If you think you'll have to mount a volume to the container, please read the section [Mounting Volumes](https://docs.docker.com/storage/volumes/) before proceeding further.
+
+Then:
+
+    docker run -tid --name beacon2-ri-tools crg/beacon2_ri:latest # run the image detached
+    docker exec -ti beacon2-ri-tools bash # connect to the container interactively
+
+#### Deploy external tools needed
+
+This step will inject the external tools and DBs into the image and modify the [configuration](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#readme-md-setting-up-beacon) files. It will also run a test to check that the installation was succesful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
+
+    bash beacon2-ri-tools/BEACON/bin/deploy_external_tools.sh
+
+To see more information regarding the Data ingestion tools repository, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#containerized).
 
 #### Beacon v2 REST API (beacon2-ri-api)
 
-Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/deploy/README.md).
+Containerized options to install the [Data ingestion tools repository](https://github.com/EGA-archive/beacon2-ri-tools).
+
+Clone beacon2-ri-api GitHub repository.
+
+    git clone https://github.com/EGA-archive/beacon2-ri-api.git
+
+All the commands should be executed from the deploy directory.
+
+    cd deploy
+
+Light up only the containers needed:
+
+```bash 
+docker network create my-app-network
+docker-compose up -d --build training-ui db mongo-express beacon permissions idp idp-db
+```
+
+With `mongo-express` we can see the contents of the database at http://localhost:8081.
+
+For more installation options, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/deploy/README.md). 
+
+Now you should have the two things downloaded, installed and set up: the beacon2-ri-tools and the beacon2-ri-api. Together (Method 1) or independently (Method 2) 
+
+You can start transforming your data to BFF and loading it to the database following the [Data beaconization tutorial](https://b2ri-documentation.readthedocs.io/en/latest/tutorial-data-beaconization/).
 
 ## Non containerized (data ingestion tools)
 
@@ -60,8 +152,10 @@ Now join the 5 parts by typing (note that momentarily we'll be using ~128G):
 
 OK, everything ready to untar the file:
 
-    tar -xvf beacon2_data.tar.gz
-    cd snpeff/v5.0 ; ln -s GRCh38.99 hg38 # In case the symbolic link does not exist already
+``` bash
+tar -xvf beacon2_data.tar.gz
+cd snpeff/v5.0 ; ln -s GRCh38.99 hg38 # In case the symbolic link does not exist already
+```
 
 *NB*: Feel free now to erase ```beacon2_data.tar.gz``` if needed.
 
@@ -87,6 +181,8 @@ And finally....
 For **Beacon**:
 
 Open the file ```config.yaml``` (inside ```beacon_X.X.X``` dir installation) and change the paths to the files/exes according to your new locations. Note that `SnpSift` is part of `SnpEff` main distribution.
+
+You can start transforming your data to BFF and loading it to the database following the [Data beaconization tutorial](https://b2ri-documentation.readthedocs.io/en/latest/tutorial-data-beaconization/).
 
 That's it!
 

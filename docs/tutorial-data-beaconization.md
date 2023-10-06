@@ -112,7 +112,7 @@ For doing this we will use again `beacon` script, but this time in mode ***mongo
 
 Let's assume that we have the 6 files from STEP 1 in the directory `my_bff_dir` and the file from STEP 2 at `beacon_XXXXXXX`. 
 
-We will add these values to a new parameters file:
+We will add these values to a new parameters (YAML) file:
 
 ```yaml
 ---
@@ -135,16 +135,6 @@ Finally, you execute this command
          |      |      |
          exe    mode   paramaters file.
 
-An alternative to using `mongodb`, in case you already have it installed, is using `mongoimport`, which does not need a parameters file and uses the following commands:
-
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file analyses.json --collection analyses 
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file biosamples.json --collection biosamples 
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file cohorts.json --collection cohorts 
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file datasets.json --collection datasets 
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file individuals.json --collection individuals 
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file runs.json --collection runs 
-    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file genomicVariationsVcf.json --collection genomicVariations   
-
 If everything goes well, all your data should be loaded into an instance of MongoDB.
 
 ![Beacon to MongoDB](img/beacon-mongodb.png)
@@ -155,11 +145,35 @@ Congratulations! You can now go to the STEP 4.
 !!! Warning "Note"
     To exit this container you just need to type "exit".
 
-## STEP 4
+
+!!! Hint "Note"
+    
+    As described above, the `beacon` script in `mongodb` mode handles both data ingestion and data indexing. You can see the actual indexing process carried out by `beacon2-ri-tools` [here](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/BEACON/bin/run_bff2mongodb.sh). We use both **single field** and **text** indices. Whenever new data is added to MongoDB, existing indexes are automatically updated to accommodate the incremental data.
+
+    Inside the `beacon2-ri-tools` container, you'll also find the MongoDB utility `mongoimport`, which can be used for data ingestion. Below is an example of how to run it.
+
+    
+    ```
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file analyses.json --collection analyses 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file biosamples.json --collection biosamples 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file cohorts.json --collection cohorts 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file datasets.json --collection datasets 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file individuals.json --collection individuals 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file runs.json --collection runs 
+    mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file genomicVariationsVcf.json --collection genomicVariations   
+    ```
+
+    Again, remember that if you follow this alternative path you will have to **index your MongoDB data**. 
+
+
+## STEP 4 
 
 You can create the necessary indexes running the following Python script:
 
     docker exec beacon python beacon/reindex.py
+
+!!! Warning "Important"
+    You can ommit the indexing step if you used `beacon mongodb` to perform the data ingestion.
 
 #### Fetch the ontologies and extract the filtering terms 
 

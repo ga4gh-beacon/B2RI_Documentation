@@ -33,6 +33,10 @@ Light up all the containers.
 
 ##### Deploying external tools in beacon2-ri-tools container
 
+!!! Danger "External Tools Architecture Alert"
+
+    Please note that the external tools are compiled specifically for `x86-64` architecture. Consequently, they are not compatible with newer ARM-based Macs.
+
 This step will inject the external tools and DBs into the image and modify the configuration files. It will also run a test to check that the installation was successful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
 
 Go inside beacon2-ri-tools container.
@@ -82,6 +86,10 @@ Then:
 
 #### Deploy external tools needed
 
+!!! Danger "External Tools Architecture Alert"
+
+    Please note that the external tools are compiled specifically for `x86-64` architecture. Consequently, they are not compatible with newer ARM-based Macs.
+
 This step will inject the external tools and DBs into the image and modify the [configuration](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#readme-md-setting-up-beacon) files. It will also run a test to check that the installation was succesful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
 
     bash beacon2-ri-tools/BEACON/bin/deploy_external_tools.sh
@@ -121,6 +129,10 @@ You can start transforming your data to BFF and loading it to the database follo
     This alternative requires a few more steps than the containerized one, but it gives the deployer more control over the tools.
 
 We will download the **data ingestion tools** from [this](https://github.com/EGA-archive/beacon2-ri-tools) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools#non-containerized).
+
+!!! Danger "External Tools Architecture Alert"
+
+    Please note that the external tools are compiled specifically for `x86-64` architecture. Consequently, they are not compatible with newer ARM-based Macs.
  
 The data ingestion tools need **external software** to function:
 

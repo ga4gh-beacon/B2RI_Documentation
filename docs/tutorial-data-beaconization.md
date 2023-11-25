@@ -46,7 +46,7 @@ First, we are going to convert your metadata (sequencing methodology, bioinforma
     Each column has its own format (e.g., string, date, [CURIE](https://en.wikipedia.org/wiki/CURIE)). These formats can browsed in the [documentation](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema). 
     We recommend using the provided XLSX for the [synthetic data](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/Beacon-v2-Models_CINECA_UK1.xlsx) as a reference.
 
-  The first thing that needs to be done is to **map/convert your metadata** so that it follows the syntax of the provided [XLSX](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx) file.
+The first thing you need to do is **manually map/convert your metadata** to match the syntax of the provided [XLSX file](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx), ensuring you fill it out accurately.
 
 ![Excel template](img/excel-template.png)
 
@@ -54,18 +54,18 @@ First, we are going to convert your metadata (sequencing methodology, bioinforma
 !!! Warning "Note"
     Normally, people don't fill out the sheet (tab) named `genomicVariations` as this info will be taken from the annotated VCF (see STEP 2).
 
-Once you have filled the Excel file then you can proceed to validate it. At this stage, it's normal that you have doubts regarding your mapping to Beacon v2 syntax. Fortunately, B2RI's utility `bff-validator` will help you complete this task. The validator **checks that all values in the XLSX match the specifications present in the Beacon v2 Models default schemas**. In technical terms, it's called _validating data against JSON Schemas_.
+Once you have completed filling out the Excel file, you can proceed to validate it. At this stage, it’s common to have uncertainties about your mapping to Beacon v2 syntax. Luckily, the B2RI utility `bff-validator` is there to assist you with this task. The validator **ensures that all values in the XLSX file conform to the specifications outlined in the Beacon v2 Models default schemas**. Technically, this process is referred to as _validating data against JSON Schemas_.
 
     ./utils/bff_validator/bff-validator -i your_xlsx_file.xlsx --out-dir my_bff_dir
 
-When you run it, it's very likely that you'll find have errors/warnings on your data. The script will catch them and explain the cause of the error. Please **address all the issues** at the XLSX. You can run the script as many times you want :-)
+When you run it, it's highly probable that you'll encounter errors or warnings related to your data. The `bff-validator` tool is designed to detect these errors and provide explanations for the validation failures. Please ensure to **address all the issues** within the XLSX file. Feel free to run the script as many times as needed. :-)
 
 ![BFF validator](img/bff-validator.png)
 
 !!! Danger "About Unicode" 
     [Unicode](https://en.wikipedia.org/wiki/UTF-8) characters are allowed as _values_ for the cells. However, if you are copy-pasting from other sources, sometimes "strange" characters are randomly introduced in places where they should not be. If `bff-validator` is giving you errors and you can't figure out how to solve them use the flag `--ignore-validation` and take a look to the _JSON_ files created. Once you spot the error(s), please fix the original Excel file and re-run the validation without the flag. See extended information [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
     
-At some point you won't get any errors. By now the script should have created 6 text files (what we call the **Beacon Friendly Format**). The files are in **JSON** format (JSON arrays) and will be used later (STEP 3).
+At some point, you won't encounter any validation errors. By then, the script should have generated 6 text files, which we refer to as the **Beacon Friendly Format**. These files are in **JSON** format (specifically, JSON arrays) and will be utilized later in **STEP 3**.
 
 Congratulations! Now you can go to STEP 2.
 
@@ -146,13 +146,12 @@ Congratulations! You can now go to the STEP 4.
     To exit this container you just need to type "exit".
 
 
-!!! Hint "Note"
+!!! Hint "Using `mongoimport` for data ingestion"
     
-    As described above, the `beacon` script in `mongodb` mode handles both data ingestion and data indexing. You can see the actual indexing process carried out by `beacon2-ri-tools` [here](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/BEACON/bin/run_bff2mongodb.sh). We use both **single field** and **text** indices. Whenever new data is added to MongoDB, existing indexes are automatically updated to accommodate the incremental data.
+    As mentioned in STEP 3, the `beacon` script in `mongodb` mode is responsible for loading the data (**ingestion** and **indexing**) in MongoDB. You can view the detailed indexing process executed by `beacon2-ri-tools` [here](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/BEACON/bin/run_bff2mongodb.sh). The system utilizes both **single field** and **text** indices. Notably, when new data is introduced to MongoDB, the existing indexes are automatically updated to include this new data.
 
-    Inside the `beacon2-ri-tools` container, you'll also find the MongoDB utility `mongoimport`, which can be used for data ingestion. Below is an example of how to run it.
+    If you choose to handle data ingestion personally using a CLI tool, the `beacon2-ri-tools` container provides the MongoDB utility `mongoimport` for this purpose. Below is an example of how to execute it:
 
-    
     ```
     mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file analyses.json --collection analyses 
     mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file biosamples.json --collection biosamples 
@@ -163,17 +162,17 @@ Congratulations! You can now go to the STEP 4.
     mongoimport --jsonArray --uri "mongodb://root:example@127.0.0.1:27017/beacon?authSource=admin" --file genomicVariationsVcf.json --collection genomicVariations   
     ```
 
-    Again, remember that if you follow this alternative path you will have to **index your MongoDB data**. 
+    Again, remember that if you follow this alternative path, you will have to **index your MongoDB data**. Indexes can affect the performance of your Beacon v2 API.
 
 
 ## STEP 4 
 
-You can create the necessary indexes running the following Python script:
+!!! Danger "Important"
+    You can ommit the indexing step if you used `beacon mongodb` to load BFF files into MongoDB.
+
+You can create the necessary indexes running the following Python script.
 
     docker exec beacon python beacon/reindex.py
-
-!!! Warning "Important"
-    You can ommit the indexing step if you used `beacon mongodb` to perform the data ingestion.
 
 #### Fetch the ontologies and extract the filtering terms 
 

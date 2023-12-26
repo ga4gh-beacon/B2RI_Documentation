@@ -1,7 +1,7 @@
 # Tutorial (Data "beaconization")
 
 !!! Warning "Note"
-    If your data is already in json format (the bff), you can go directly to STEP 4).
+    If your data is already serialized to `JSON` format (the `BFF`), you can go directly to STEP 4).
 
 In this tutorial it is expected to already have the Data ingestion tools and Beacon V2 REST API downloaded, installed and set up following the instructions in [Download & Installation](https://b2ri-documentation.readthedocs.io/en/latest/download-and-installation/).
 
@@ -60,12 +60,40 @@ Once you have completed filling out the Excel file, you can proceed to validate 
 
 When you run it, it's highly probable that you'll encounter errors or warnings related to your data. The `bff-validator` tool is designed to detect these errors and provide explanations for the validation failures. Please ensure to **address all the issues** within the XLSX file. Feel free to run the script as many times as needed. :-)
 
-![BFF validator](img/bff-validator.png)
+!!! Warning "Example Errors"
 
-!!! Danger "About Unicode" 
-    [Unicode](https://en.wikipedia.org/wiki/UTF-8) characters are allowed as _values_ for the cells. However, if you are copy-pasting from other sources, sometimes "strange" characters are randomly introduced in places where they should not be. If `bff-validator` is giving you errors and you can't figure out how to solve them use the flag `--ignore-validation` and take a look to the _JSON_ files created. Once you spot the error(s), please fix the original Excel file and re-run the validation without the flag. See extended information [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
+    **Example 1:**
+
+    ```
+    Row 1:
+    /ethnicity/id: String does not match ^\w[^:]+:.+$.
+    ```
+
+    This error indicates that the `id` within `ethnicity` does not conform to the [CURIE convention](https://github.com/ga4gh-beacon/beacon-v2/blob/main/framework/json/common/beaconCommonComponents.json). The expected format is a string that matches the specified regular expression.
     
+    **Example 2:**
+
+    ```
+    Row 1:
+    /id: Missing property.
+    ```
+    This error suggests that the `id` attribute is missing for the individual in question.
+    
+    **Example 3: (Non-error)**
+
+    As the specification is currently under development, warnings may appear for fields that appear correct. An example is the `oneOf` [error](https://github.com/ga4gh-beacon/beacon-v2/issues/49), as shown below:
+    
+    ```
+    Row 1:
+    /diseases/0/ageOfOnset: oneOf rules 0, 1 match.
+    ```
+
+!!! Danger "About Unicode"
+    [Unicode characters](https://en.wikipedia.org/wiki/UTF-8) are permitted as values in cells. However, be cautious when copying and pasting from external sources, as this can introduce unexpected characters in unintended places. If the `bff-validator` generates errors that are difficult to diagnose, consider using the `--ignore-validation` flag to proceed and then examine the generated JSON files for errors. After identifying and correcting the errors in the original Excel file, rerun the validation process without the `--ignore-validation` flag. For more detailed information, please visit [this page](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
+
 At some point, you won't encounter any validation errors. By then, the script should have generated 6 text files, which we refer to as the **Beacon Friendly Format**. These files are in **JSON** format (specifically, JSON arrays) and will be utilized later in **STEP 3**.
+
+![BFF validator](img/bff-validator.png)
 
 Congratulations! Now you can go to STEP 2.
 

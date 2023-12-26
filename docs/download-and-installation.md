@@ -9,16 +9,19 @@ The software consists of [several components](https://b2ri-documentation.readthe
 
 Before starting, it will be necessary to install:
 
-* [Mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/)
 * [Docker + Docker-compose](https://docs.docker.com/engine/install/ubuntu/)
+
+!!! Warning "About `mongoimport`"
+
+    The `beacon2-ri-tools` container comes equipped with the `mongoimport` utility.  If the `beacon2-ri-tools` container is not installed, it's necessary to [install mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/) separately to facilitate CLI-based data imports.
 
 ## Containerized (Recommended)
 
 ### Method 1: All containers in one
 
-##### Setting up all the containers, beacon2-ri-tools and beacon2-ri-api together using the [beacon2-ri-api repository](https://github.com/EGA-archive/beacon2-ri-api).
+##### Setting up all the containers, `beacon2-ri-tools` and `beacon2-ri-api` together using the [beacon2-ri-api repository](https://github.com/EGA-archive/beacon2-ri-api).
 
-Clone beacon2-ri-api GitHub repository.
+Clone `beacon2-ri-api` GitHub repository.
 
     git clone https://github.com/EGA-archive/beacon2-ri-api.git
 
@@ -31,7 +34,7 @@ Light up all the containers.
     docker network create my-app-network
     docker-compose up -d --build
 
-##### Deploying external tools in beacon2-ri-tools container
+##### Deploying external tools in `beacon2-ri-tools` container
 
 !!! Danger "External Tools Architecture Alert"
 
@@ -39,7 +42,7 @@ Light up all the containers.
 
 This step will inject the external tools and DBs into the image and modify the configuration files. It will also run a test to check that the installation was successful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
 
-Go inside beacon2-ri-tools container.
+Go inside `beacon2-ri-tools` container.
 
     docker exec -it deploy_beacon-ri-tools_1 bash
     bash /usr/share/beacon-ri/beacon2-ri-tools/BEACON/bin/deploy_external_tools.sh
@@ -53,12 +56,12 @@ For more installation options, please follow the instructions provided in the [R
 
 ### Method 2: Independent containers
 
-Download the beacon2-ri-tools container and the beacon2-ri-api container independently.
+Download the `beacon2-ri-tools` container and the `beacon2-ri-api` container independently.
 
 !!! Note "Tip"
     The data ingestion tools can function without the API, so you can download one without the other.
 
-#### Data ingestion tools (beacon2-ri-tools)
+#### Data ingestion tools (`beacon2-ri-tools`)
 
 Containerized options to install the [Data ingestion tools repository](https://github.com/EGA-archive/beacon2-ri-tools).
 
@@ -96,11 +99,9 @@ This step will inject the external tools and DBs into the image and modify the [
 
 To see more information regarding the Data ingestion tools repository, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#containerized).
 
-#### Beacon v2 REST API (beacon2-ri-api)
+#### Beacon v2 REST API (`beacon2-ri-api`)
 
-Containerized options to install the [Data ingestion tools repository](https://github.com/EGA-archive/beacon2-ri-tools).
-
-Clone beacon2-ri-api GitHub repository.
+Clone `beacon2-ri-api` GitHub repository.
 
     git clone https://github.com/EGA-archive/beacon2-ri-api.git
 
@@ -119,7 +120,7 @@ With `mongo-express` we can see the contents of the database at http://localhost
 
 For more installation options, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-api/blob/master/deploy/README.md). 
 
-Now you should have the two things downloaded, installed and set up: the beacon2-ri-tools and the beacon2-ri-api. Together (Method 1) or independently (Method 2) 
+Now you should have the two things downloaded, installed and set up: the `beacon2-ri-tools` and the `beacon2-ri-api`. Together (Method 1) or independently (Method 2) 
 
 You can start transforming your data to BFF and loading it to the database following the [Data beaconization tutorial](https://b2ri-documentation.readthedocs.io/en/latest/tutorial-data-beaconization/).
 

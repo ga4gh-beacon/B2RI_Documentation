@@ -2,7 +2,7 @@
 
 !!! Important "Approved GA4GH Standard"
 
-        On **2022-04-22** Beacon v2 has been approved as an official [GA4GH standard](https://www.ga4gh.org/).
+    On **2022-04-22** Beacon v2 has been approved as an official [GA4GH standard](https://www.ga4gh.org/).
 
 Welcome to the documentation for the **Beacon v2 Reference Implementation**!
 

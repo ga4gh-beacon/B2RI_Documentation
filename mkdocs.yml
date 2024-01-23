@@ -24,7 +24,6 @@ nav:
   - Tutorial:
       - Data beaconization: tutorial-data-beaconization.md
   - Help:
-      - Help: http://github.com/mrueda/Beacon2
       - FAQs: faq.md
   - About:
       - About: about.md

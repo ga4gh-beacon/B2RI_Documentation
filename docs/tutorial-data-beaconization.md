@@ -1,7 +1,7 @@
 # Tutorial (Data "beaconization")
 
 !!! Warning "Note"
-    If your data is already serialized to `JSON` format (the `BFF`), you can go directly to STEP 4).
+    If your data is already serialized to `JSON` format (the `BFF`), you can go directly to STEP 4.
 
 In this tutorial it is expected to already have the Data ingestion tools and Beacon V2 REST API downloaded, installed and set up following the instructions in [Download & Installation](https://b2ri-documentation.readthedocs.io/en/latest/download-and-installation/).
 
@@ -121,7 +121,7 @@ genome:hs37d5g
 !!! Important
     **Note about timing**: We made the script _as fast as we possibly could_ with a scripting language. In this regard, the processing time scales linearly with the #variants, but it's also affected by the #samples. For instance, 1M variants with 2,500 samples will take around ~20-25 min.
 
-If something is wrong with the input files, the script will complain and provide possible solutions.
+If something is wrong with the input files, the script will complain and provide [possible solutions](https://b2ri-documentation.readthedocs.io/en/latest/faq/#data-ingestion-tools).
 
 ![Beacon to VCF](img/beacon-vcf.png)
 
@@ -225,4 +225,4 @@ Cheers!
 Manu
 
 !!! Important "Note about MongoDB"
-    As with any other database, it is possible to perform queries directly to **MongoDB**. In our case, the database is named _beacon_ and contains the ingested _collections_.    For doing so, you will need to use one of the many UI (we have included [Mongo Express](./external_tools)), the ```mongosh``` or use any of the [MongoDB drivers](https://docs.mongodb.com/drivers) that exist for most programming languages. As an example, we have included an utility `bff-api` that enables you to make **simple queries** to one collection at a time (see instructions [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_api)). For a more comprehensive description check [MongoDB](https://www.mongodb.com) literature.
+    As with any other database, it is possible to perform queries directly to **MongoDB**. In our case, the database is named _beacon_ and contains the ingested _collections_.    For doing so, you will need to use one of the many UI (we have included [Mongo Express](./external_tools)), the ```mongosh``` or use any of the [MongoDB drivers](https://docs.mongodb.com/drivers) that exist for most programming languages. As an example, we have included an utility `bff-api` that enables you to make **simple queries** (see instructions [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_api)). For a more comprehensive description check [MongoDB](https://www.mongodb.com) literature.

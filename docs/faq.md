@@ -115,7 +115,7 @@ Nope at this moment (Apr-2022). Currently, there is a Beacon scout team actively
 
 ### I am using a SQL-based database, can I still use your Reference Implementation?
 
-The issue with having a SQL-based is that, if you want to be **Beacon v2 response _compliant_** you will need to convert your tables-based data to the JSON Schema of the [Beacon v2 Models](http://docs.genomebeacons.org). Intrepid implementers are able to do this transformation (likely) at the API level. However, a much simpler alternative (and actually the one we've seen the most in healthcare systems) is that people perform a `dump` (data export) of the subset of data they want to share and then use [B2RI tools](tutorial-data-beaconization.md) to convert this tabular data to Beacon v2 format and use the included REST API. So yes, if you follow this path you will be still using our Reference Implementation.
+The issue with having a SQL-based is that, if you want to be **Beacon v2 response _compliant_** you will need to convert your tables-based data to the JSON Schema of the [Beacon v2 Models](http://docs.genomebeacons.org). Intrepid implementers are able to do this transformation (likely) at the API level. However, a much simpler alternative (and actually the one we've seen the most in healthcare systems) is that people perform a `dump` (data export) of the subset of data they want to share and then use [beacon2-ri-tools](tutorial-data-beaconization.md) to convert this tabular data to Beacon v2 format and use the included REST API. So yes, if you follow this path you will be still using our Reference Implementation.
 
 ### Should I update to the `latest` version?
 

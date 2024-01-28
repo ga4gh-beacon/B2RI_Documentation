@@ -63,21 +63,48 @@ Download the `beacon2-ri-tools` container and the `beacon2-ri-api` container ind
 
 #### Data ingestion tools (`beacon2-ri-tools`)
 
-Containerized options to install the [Data ingestion tools repository](https://github.com/EGA-archive/beacon2-ri-tools).
+Containerized options to install the Data ingestion tools repository.
 
-##### Option 1: Build the container from Docker Hub
+##### Original Version: EGA-archive
 
-A set of Docker images can be obtained from [Docker Hub](https://hub.docker.com/r/beacon2ri/beacon_reference_implementation). Please see the documentation there. 
+For the original version of the tools, visit the [EGA-archive repository](https://github.com/EGA-archive/beacon2-ri-tools).
 
-##### Option 2: Build the container from the Dockerfile in the GitHub repository
+**Option 1: Build the container from Docker Hub**
+- Docker image can be obtained from [Docker Hub](https://hub.docker.com/r/beacon2ri/beacon_reference_implementation). Please see the documentation there for detailed instructions.
 
-Download the `Dockerfile` from [Github](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/Dockerfile) by typing:
+**Option 2: Build the container from the Dockerfile in the GitHub repository**
+- Download the `Dockerfile` from the GitHub repository by typing:
 
-    wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerfile 
+```
+wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerfile
+```
 
 Then, execute the following commands to build the container (~1.1G):
 
-    docker build -t crg/beacon2_ri:latest .
+```
+docker build -t crg/beacon2_ri:latest .
+```
+
+
+##### Latest and actively maintained version
+
+The latest and actively maintained version of the tools can be found in the [following repository](https://github.com/mrueda/beacon2-ri-tools).
+
+**Option 1: Build the container from Docker Hub**
+- For building the container, visit [Docker Hub](https://hub.docker.com/r/manuelrueda/beacon2-ri-tools) or the repository documentation for more information.
+
+**Option 2: Build the container from the Dockerfile in the GitHub repository**
+- Download the `Dockerfile` from the GitHub repository by typing:
+
+```
+wget https://raw.githubusercontent.com/mrueda/beacon2-ri-tools/main/Dockerfile
+```
+
+Then, execute the following commands to build the container (~1.1G):
+
+```
+docker build -t crg/beacon2_ri:latest .
+```
 
 !!! Important
     Docker containers are fully isolated. If you think you'll have to mount a volume to the container, please read the section [Mounting Volumes](https://docs.docker.com/storage/volumes/) before proceeding further.

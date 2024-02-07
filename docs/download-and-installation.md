@@ -82,9 +82,8 @@ wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerf
 Then, execute the following commands to build the container (~1.1G):
 
 ```
-docker build -t crg/beacon2_ri:latest .
+docker buildx build -t crg/beacon2_ri:latest . # build the container (~1.1G)
 ```
-
 
 ##### Latest and actively maintained version
 
@@ -103,7 +102,7 @@ wget https://raw.githubusercontent.com/mrueda/beacon2-ri-tools/main/Dockerfile
 Then, execute the following commands to build the container (~1.1G):
 
 ```
-docker build -t crg/beacon2_ri:latest .
+docker buildx build -t crg/beacon2_ri:latest . # build the container (~1.1G)
 ```
 
 !!! Important
@@ -240,43 +239,34 @@ First you need to create a file named ```docker-compose.yml``` with these conten
 ```
 version: '3.1'
 
-# networks:
-#   beacon-priv:
-#   idp-priv:
-#   pub:
-
 services:
-
-  ###########################################
-  # MongoDB Database
-  ###########################################
-
   mongo:
     image: mongo
     hostname: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    # networks:
-    #   - beacon-priv
+    networks:
+      -  my-app-network
 
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - "8081:8081"
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-    # networks:
-    #   - beacon-priv
+    networks:
+      -  my-app-network
 ```
 
 And then run:
 
+    docker network create my-app-network
     docker-compose up -d
 
 Once complete you should have two Docker processes: ```mongo``` and ```mongo-express```. You can check this by typing:

@@ -37,16 +37,16 @@ Now you should be inside the beacon2-ri-tools container to start the Data beacon
 
 ## STEP 1
 
-First, we are going to convert your metadata (sequencing methodology, bioinformatics tools, phenotypic data, etc.) to the format of the [Beacon v2 Models](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema). As **input**, we will be using this [XLSX](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx) template.
+First, we are going to convert your metadata (sequencing methodology, bioinformatics tools, phenotypic data, etc.) to the format of the [Beacon v2 Models](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema). As **input**, we will be using this [XLSX](https://github.com/mrueda/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx) template.
 
 !!! Important "About the XLSX template"
     The XLSX template consists of **seven sheets** that match the [Beacon v2 Models](http://docs.genomebeacons.org/).
     The template has the purpose of facilitating users' transformation of the data (likely in tabular form) to the hierarchical structure that we have in the [Beacon v2 Models](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema).
     The header nomenclature gives a hint about if the data will be later stored as an `object` (naming contains `.`) or as an `array` (naming contains `_`).
     Each column has its own format (e.g., string, date, [CURIE](https://en.wikipedia.org/wiki/CURIE)). These formats can browsed in the [documentation](http://docs.genomebeacons.org/schemas-md/analyses_defaultSchema). 
-    We recommend using the provided XLSX for the [synthetic data](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/Beacon-v2-Models_CINECA_UK1.xlsx) as a reference.
+    We recommend using the provided XLSX for the [synthetic data](https://github.com/mrueda/beacon2-ri-tools/blob/main/CINECA_synthetic_cohort_EUROPE_UK1/Beacon-v2-Models_CINECA_UK1.xlsx) as a reference.
 
-The first thing you need to do is **manually map/convert your metadata** to match the syntax of the provided [XLSX file](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx), ensuring you fill it out accurately.
+The first thing you need to do is **manually map/convert your metadata** to match the syntax of the provided [XLSX file](https://github.com/mrueda/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx), ensuring you fill it out accurately.
 
 ![Excel template](img/excel-template.png)
 
@@ -89,7 +89,7 @@ When you run it, it's highly probable that you'll encounter errors or warnings r
     ```
 
 !!! Danger "About Unicode"
-    [Unicode characters](https://en.wikipedia.org/wiki/UTF-8) are permitted as values in cells. However, be cautious when copying and pasting from external sources, as this can introduce unexpected characters in unintended places. If the `bff-validator` generates errors that are difficult to diagnose, consider using the `--ignore-validation` flag to proceed and then examine the generated JSON files for errors. After identifying and correcting the errors in the original Excel file, rerun the validation process without the `--ignore-validation` flag. For more detailed information, please visit [this page](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator).
+    [Unicode characters](https://en.wikipedia.org/wiki/UTF-8) are permitted as values in cells. However, be cautious when copying and pasting from external sources, as this can introduce unexpected characters in unintended places. If the `bff-validator` generates errors that are difficult to diagnose, consider using the `--ignore-validation` flag to proceed and then examine the generated JSON files for errors. After identifying and correcting the errors in the original Excel file, rerun the validation process without the `--ignore-validation` flag. For more detailed information, please visit [this page](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_validator).
 
 At some point, you won't encounter any validation errors. By then, the script should have generated 6 text files, which we refer to as the **Beacon Friendly Format**. These files are in **JSON** format (specifically, JSON arrays) and will be utilized later in **STEP 3**.
 
@@ -113,7 +113,7 @@ The VCF file has to be gzipped (or bgzipped). What we are going to do it's to an
 
 Here we are using `beacon` script in mode ***vcf***. This mode is one of the three available [vcf|mongodb|full]. 
 
-The parameters file is optional if you want to use the default value (hg19) but it is needed if you want to change them. Note that you must provide the **reference genome** (unless you're using `hg19` which is the default one) that was used to create your VCF. See all the script options [here](https://github.com/EGA-archive/beacon2-ri-tools#how-to-run-beacon).
+The parameters file is optional if you want to use the default value (hg19) but it is needed if you want to change them. Note that you must provide the **reference genome** (unless you're using `hg19` which is the default one) that was used to create your VCF. See all the script options [here](https://github.com/mrueda/beacon2-ri-tools#how-to-run-beacon).
 
 The `param_file` should look something like this:
 genome:hs37d5g
@@ -176,7 +176,7 @@ Congratulations! You can now go to the STEP 4.
 
 !!! Hint "Using `mongoimport` for data ingestion"
     
-    As mentioned in STEP 3, the `beacon` script in `mongodb` mode is responsible for loading the data (**ingestion** and **indexing**) in MongoDB. You can view the detailed indexing process executed by `beacon2-ri-tools` [here](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/BEACON/bin/run_bff2mongodb.sh). The system utilizes both **single field** and **text** indices. Notably, when new data is introduced to MongoDB, the existing indexes are automatically updated to include this new data.
+    As mentioned in STEP 3, the `beacon` script in `mongodb` mode is responsible for loading the data (**ingestion** and **indexing**) in MongoDB. You can view the detailed indexing process executed by `beacon2-ri-tools` [here](https://github.com/mrueda/beacon2-ri-tools/blob/main/BEACON/bin/run_bff2mongodb.sh). The system utilizes both **single field** and **text** indices. Notably, when new data is introduced to MongoDB, the existing indexes are automatically updated to include this new data.
 
     If you choose to handle data ingestion personally using a CLI tool, the `beacon2-ri-tools` container provides the MongoDB utility `mongoimport` for this purpose. Below is an example of how to execute it:
 
@@ -225,4 +225,4 @@ Cheers!
 Manu
 
 !!! Important "Note about MongoDB"
-    As with any other database, it is possible to perform queries directly to **MongoDB**. In our case, the database is named _beacon_ and contains the ingested _collections_.    For doing so, you will need to use one of the many UI (we have included [Mongo Express](./external_tools)), the ```mongosh``` or use any of the [MongoDB drivers](https://docs.mongodb.com/drivers) that exist for most programming languages. As an example, we have included an utility `bff-api` that enables you to make **simple queries** (see instructions [here](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_api)). For a more comprehensive description check [MongoDB](https://www.mongodb.com) literature.
+    As with any other database, it is possible to perform queries directly to **MongoDB**. In our case, the database is named _beacon_ and contains the ingested _collections_.    For doing so, you will need to use one of the many UI (we have included [Mongo Express](./external_tools)), the ```mongosh``` or use any of the [MongoDB drivers](https://docs.mongodb.com/drivers) that exist for most programming languages. As an example, we have included an utility `bff-api` that enables you to make **simple queries** (see instructions [here](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_api)). For a more comprehensive description check [MongoDB](https://www.mongodb.com) literature.

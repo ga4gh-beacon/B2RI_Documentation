@@ -2,7 +2,7 @@
 
 The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation.
 
-The software consists of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/EGA-archive/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
+The software consists of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/mrueda/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
 
 !!! Note "Tip"
     The data ingestion tools can function without the API, so you can download one without the other.
@@ -65,32 +65,17 @@ Download the `beacon2-ri-tools` container and the `beacon2-ri-api` container ind
 
 Containerized options to install the Data ingestion tools repository.
 
-##### Original Version: EGA-archive
-
-For the original version of the tools, visit the [EGA-archive repository](https://github.com/EGA-archive/beacon2-ri-tools).
-
-**Option 1: Build the container from Docker Hub**
-- Docker image can be obtained from [Docker Hub](https://hub.docker.com/r/beacon2ri/beacon_reference_implementation). Please see the documentation there for detailed instructions.
-
-**Option 2: Build the container from the Dockerfile in the GitHub repository**
-- Download the `Dockerfile` from the GitHub repository by typing:
-
-```
-wget https://raw.githubusercontent.com/EGA-archive/beacon2-ri-tools/main/Dockerfile
-```
-
-Then, execute the following commands to build the container (~1.1G):
-
-```
-docker buildx build -t crg/beacon2_ri:latest . # build the container (~1.1G)
-```
-
 ##### Latest and actively maintained version
 
 The latest and actively maintained version of the tools can be found in the [following repository](https://github.com/mrueda/beacon2-ri-tools).
 
 **Option 1: Build the container from Docker Hub**
-- For building the container, visit [Docker Hub](https://hub.docker.com/r/manuelrueda/beacon2-ri-tools) or the repository documentation for more information.
+- For building the container, use the following commands. You can also visit [Docker Hub](https://hub.docker.com/r/manuelrueda/beacon2-ri-tools) or the repository documentation for more information.
+
+```
+docker pull manuelrueda/beacon2-ri-tools:latest
+docker image tag manuelrueda/beacon2-ri-tools:latest crg/beacon2_ri:latest
+```
 
 **Option 2: Build the container from the Dockerfile in the GitHub repository**
 - Download the `Dockerfile` from the GitHub repository by typing:
@@ -104,6 +89,10 @@ Then, execute the following commands to build the container (~1.1G):
 ```
 docker buildx build -t crg/beacon2_ri:latest . # build the container (~1.1G)
 ```
+
+##### Original Version: EGA-archive (unmaintained)
+
+The original version of the tools is now deprecated and unmaintained. Due to restricted access to the original EGA-archive repository, development has continued in a new forked repository. For the deprecated version, you can still use the same commands as above but with the following [EGA-archive repository](https://github.com/EGA-archive/beacon2-ri-tools).
 
 !!! Important
     Docker containers are fully isolated. If you think you'll have to mount a volume to the container, please read the section [Mounting Volumes](https://docs.docker.com/storage/volumes/) before proceeding further.
@@ -119,11 +108,11 @@ Then:
 
     Please note that the external tools are compiled specifically for `x86-64` architecture. Consequently, they are not compatible with newer ARM-based Macs.
 
-This step will inject the external tools and DBs into the image and modify the [configuration](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#readme-md-setting-up-beacon) files. It will also run a test to check that the installation was succesful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
+This step will inject the external tools and DBs into the image and modify the [configuration](https://github.com/mrueda/beacon2-ri-tools/blob/main/README.md#readme-md-setting-up-beacon) files. It will also run a test to check that the installation was succesful. Note that running `deploy_external_tools.sh` will take some time (and disk space!!!).
 
     bash beacon2-ri-tools/BEACON/bin/deploy_external_tools.sh
 
-To see more information regarding the Data ingestion tools repository, please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/README.md#containerized).
+To see more information regarding the Data ingestion tools repository, please follow the instructions provided in the [README](https://github.com/mrueda/beacon2-ri-tools/blob/main/README.md#containerized).
 
 #### Beacon v2 REST API (`beacon2-ri-api`)
 
@@ -155,7 +144,7 @@ You can start transforming your data to BFF and loading it to the database follo
 !!! Warning "Message"
     This alternative requires a few more steps than the containerized one, but it gives the deployer more control over the tools.
 
-We will download the **data ingestion tools** from [this](https://github.com/EGA-archive/beacon2-ri-tools) repository. Please follow the instructions provided in the [README](https://github.com/EGA-archive/beacon2-ri-tools#non-containerized).
+We will download the **data ingestion tools** from [this](https://github.com/mrueda/beacon2-ri-tools) repository. Please follow the instructions provided in the [README](https://github.com/mrueda/beacon2-ri-tools#non-containerized).
 
 !!! Danger "External Tools Architecture Alert"
 

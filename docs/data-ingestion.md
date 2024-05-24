@@ -42,9 +42,9 @@ The **B2RI** has a tool that loads BFF files to MongoDB. Once loaded, we will re
 
 The data ingestion tools include a few utilities that will help you with data processing and beyond:
 
-* [bff-api](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_api)
-* [bff-queue](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_queue)
-* [bff-validator](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator)
+* [bff-api](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_api)
+* [bff-queue](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_queue)
+* [bff-validator](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_validator)
                                                                                                         
 ## BFF Genomic Variations Browser
 

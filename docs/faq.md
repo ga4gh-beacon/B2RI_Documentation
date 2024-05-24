@@ -8,7 +8,7 @@ They are [0-based](http://docs.genomebeacons.org/formats-standards/#genome-coord
 
 ### I have an error when attempting to use `beacon vcf`, what should I do?
 
-* In 9 out 10 cases, the error comes from **BCFtools** and is about the **reference genome** used. The reference genome is set up inside the **parameters** [file](https://github.com/EGA-archive/beacon2-ri-tools) and the possibilities are _hg19_, _hg38_ (both use `chr` before the number), and _hs37_ (does not use `chr` before the number). Be aware that BCFtools is very nit picky (with a reason) about the contigs, etc. not matching those in the fasta file. Please fix your VCF accordingly or modify `config.yaml` to provide the path to your reference genome.
+* In 9 out 10 cases, the error comes from **BCFtools** and is about the **reference genome** used. The reference genome is set up inside the **parameters** [file](https://github.com/mrueda/beacon2-ri-tools) and the possibilities are _hg19_, _hg38_ (both use `chr` before the number), and _hs37_ (does not use `chr` before the number). Be aware that BCFtools is very nit picky (with a reason) about the contigs, etc. not matching those in the fasta file. Please fix your VCF accordingly or modify `config.yaml` to provide the path to your reference genome.
 
 * On top of that, **BCFtools** may complain about the number of fields somewhere (e.g., at INFO) not being right.
 ```
@@ -32,11 +32,13 @@ Yes, but **first you will need to transform them** to a VCF. There are quite a f
 
 The underlying idea about annotating with the B2RI's data ingestion tools is to provide consistency/homogeneicity for the community. Technically speaking, to create `genomicVariationsVcf.json.gz` BFF, first we need to parse an annotated VCF. It's hard to create a parser that handles all the annotation alternatives from the community. On top of that, we need to make sure that the _essential_ fields exist. That's why recommend annotating (or re-annotating if your VCFs already have annotations) VCFs with our tooling. Note that previous annotations in the VCF will be discarded.  
 
-Having said that, in ocassions researchers have **internal annotations** that can have a lot of value as well. For that reason, it is also possible to add alternative genomic variations by filling out the corresponding _tab_ in the provided [XLSX](https://github.com/EGA-archive/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx). Just make sure you fill out all the mandatory terms requested in the schema. The resulting file will be named `genomicVariations.json`. Both `genomicVariations.json` and `genomicVariationsVcf.json.gz` (see above paragraph) will end up loaded in the MongoDB collection _genomicVariations_. See more information in this [tutorial](./tutorial-data-beaconization.md).
+Having said that, in ocassions researchers have **internal annotations** that can have a lot of value as well. For that reason, it is also possible to add alternative genomic variations by filling out the corresponding _tab_ in the provided [XLSX](https://github.com/mrueda/beacon2-ri-tools/blob/main/utils/bff_validator/Beacon-v2-Models_template.xlsx). Just make sure you fill out all the mandatory terms requested in the schema. The resulting file will be named `genomicVariations.json`. Both `genomicVariations.json` and `genomicVariationsVcf.json.gz` (see above paragraph) will end up loaded in the MongoDB collection _genomicVariations_. See more information in this [tutorial](./tutorial-data-beaconization.md).
 
-### Is there any alternative to the XLSX to introduce metadata/phenotypic data?
+### Is there an alternative to the Excel file for generating metadata/phenotypic data?
 
-Yes, there is. You can use CSV or JSON directly as input. Please check the [manual](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_validator) of the utility `bff-validator`.
+Yes, there is. You can use CSV or JSON files directly as input for the `bff-validator` utility. For detailed instructions, please refer to the [bff-validator manual](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_validator).
+
+Alternatively, if your clinical data is in REDCap, OMOP CDM, Phenopackets v2, or simply in a raw CSV format, we recommend using the [Convert-Pheno](https://github.com/CNAG-Biomedical-Informatics/convert-pheno) tool. Convert-Pheno is tailored towards the `individuals` entity of the Beacon v2 Models.
 
 ### `bff-validator` specification mismatches
 
@@ -67,7 +69,7 @@ Usually, metadata/phenoclinic data ingestion is fast as we'll be dealing with th
 
         zcat input.vcf.gz | awk '/^#/ || $1=="chr1"' | bgzip > chr1.vcf.gz
 
-2. Use [parallel processing](https://github.com/EGA-archive/beacon2-ri-tools/tree/main/utils/bff_queue) to submit the jobs. 
+2. Use [parallel processing](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_queue) to submit the jobs. 
 
 ### Can I use parallel jobs to perform data ingestion into mongoDB?
 
@@ -115,12 +117,13 @@ Nope at this moment (Apr-2022). Currently, there is a Beacon scout team actively
 
 ### I am using a SQL-based database, can I still use your Reference Implementation?
 
-The issue with having a SQL-based is that, if you want to be **Beacon v2 response _compliant_** you will need to convert your tables-based data to the JSON Schema of the [Beacon v2 Models](http://docs.genomebeacons.org). Intrepid implementers are able to do this transformation (likely) at the API level. However, a much simpler alternative (and actually the one we've seen the most in healthcare systems) is that people perform a `dump` (data export) of the subset of data they want to share and then use [beacon2-ri-tools](tutorial-data-beaconization.md) to convert this tabular data to Beacon v2 format and use the included REST API. So yes, if you follow this path you will be still using our Reference Implementation.
+The issue with using a SQL-based database is that, if you want to be **Beacon v2 response _compliant_**, you will need to convert your tables-based data to the JSON Schema of the [Beacon v2 Models](http://docs.genomebeacons.org). Intrepid implementers can perform this transformation at the API level. However, a much simpler alternative (and one commonly seen in healthcare systems) is to perform a `dump` (data export) of the subset of data you want to share and then use [beacon2-ri-tools](tutorial-data-beaconization.md) to convert this tabular data to Beacon v2 format and use the included REST API. So yes, if you follow this path you will still be using our Reference Implementation.
+
+Additionally, OMOP CDM instances in PostgreSQL can be converted to BFF data exchange files using the [Convert-Pheno](https://github.com/CNAG-Biomedical-Informatics/convert-pheno) tool, which is tailored towards the `individuals` entity of the Beacon v2 Models.
 
 ### Should I update to the `latest` version?
 
-Yep. We recommend checking our Github repositories ([beacon2-ri-tools](https://github.com/EGA-archive/beacon2-ri-tools) and [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)) and downloading the latest version. If the version it's in GitHub is because it passed our test and it's ready to be used. In principle, a simple `git pull` will do the update for both containerized and non-containerized versions.
-Now, the version number matches that of the [Beacon v2 specification](https://github.com/ga4gh-beacon/beacon-v2). When the latter changes, B2RI version will change as well.
+Yep. We recommend checking our Github repositories ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools) and [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)) and downloading the latest version. If the version it's in GitHub is because it passed our tests and it's ready to be used. In principle, a simple `git pull` will do the update for both containerized and non-containerized versions.
 
 ### Can I contribute to the GitHub repositories?
 

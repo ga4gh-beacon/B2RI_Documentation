@@ -3,7 +3,7 @@
 ![CINECA logo](img/CINECA_logo.png)
 
 
-We have included the [CINECA_synthetic_cohort_EUROPE_UK1](https://www.cineca-project.eu/cineca-synthetic-datasets) (license: CC-BY) dataset to test **B2RI** functionalities. 
+The `beacon2-ri-tools` GitHub repository includes the [CINECA_synthetic_cohort_EUROPE_UK1](https://www.cineca-project.eu/cineca-synthetic-datasets) (license: CC-BY) dataset to test **B2RI** functionalities. 
 
 The dataset was acquired from EGA (EGAD00001006673), please see the full description [here](https://ega-archive.org/datasets/EGAD00001006673).
 

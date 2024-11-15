@@ -9,10 +9,7 @@ The B2RI includes:
   3. The Beacon query engine (i.e., REST API).
   4. An example [dataset](https://www.cineca-project.eu/cineca-synthetic-datasets) consisting of synthetic-data (CINECA synthetic cohort EUROPE UK1).
 
-The **B2RI** is conceived as a customizable **local** solution, delivered with a basic configuration. The software is written in ```Python, Perl``` and ```Bash``` and has a command-line interface ([CLI](https://en.wikipedia.org/wiki/Command-line_interface)) for control and operation.
-
-!!! Note "Citation"
-    Rueda, M, Ariosa R. "Beacon v2 Reference Implementation: a toolkit to enable federated sharing of genomic and phenotypic data". _Bioinformatics_, btac568, [DOI](https://doi.org/10.1093/bioinformatics/btac568).
+The **B2RI** is conceived as a customizable **local** solution, delivered with a basic configuration. The software is written in ```Python, Perl``` and ```Bash```.
 
 !!! Warning "Acknowledgement"
     This study was funded by ELIXIR, the research infrastructure for life-science data (ELIXIR Beacon Implementation Studies 2019-2021 and 2022-2023).

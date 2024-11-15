@@ -2,24 +2,27 @@
 
 The Beacon v2 Reference Implementation is a software that must be installed **locally** in a Linux server/workstation.
 
-The software consists of [several components](https://b2ri-documentation.readthedocs.io/en/latest/beacon-v2-reference-implementation) that are distributed in two different GitHub repositories, one for [data ingestion tools](https://github.com/mrueda/beacon2-ri-tools) and another for the [API](https://github.com/EGA-archive/beacon2-ri-api). The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
+The software is distributed in **two different GitHub repositories**: 
+
+1. The data ingestion tools ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools)).
+
+2. The API ([beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)). 
 
 !!! Note "Tip"
     The data ingestion tools can function without the API, so you can download one without the other.
+
+The software also needs external dependencies to work. In this regard, we provide several alternatives for download and installation.
+
 
 Before starting, it will be necessary to install:
 
 * [Docker + Docker-compose](https://docs.docker.com/engine/install/ubuntu/)
 
-!!! Warning "About `mongoimport`"
-
-    The `beacon2-ri-tools` container comes equipped with the `mongoimport` utility.  If the `beacon2-ri-tools` container is not installed, it's necessary to [install mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/) separately to facilitate CLI-based data imports.
-
 ## Containerized (Recommended)
 
 ### Method 1: All containers in one
 
-##### Setting up all the containers, `beacon2-ri-tools` and `beacon2-ri-api` together using the [beacon2-ri-api repository](https://github.com/EGA-archive/beacon2-ri-api).
+##### Setting up all the containers, `beacon2-ri-tools` and `beacon2-ri-api` together using the [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api) repository.
 
 Clone `beacon2-ri-api` GitHub repository.
 
@@ -58,14 +61,13 @@ For more installation options, please follow the instructions provided in the [R
 
 Download the `beacon2-ri-tools` container and the `beacon2-ri-api` container independently.
 
-!!! Note "Tip"
-    The data ingestion tools can function without the API, so you can download one without the other.
-
 #### Data ingestion tools (`beacon2-ri-tools`)
 
 Containerized options to install the Data ingestion tools repository.
 
-##### Latest and actively maintained version
+!!! Note
+
+    The original version of the tools is now deprecated and unmaintained. Due to restricted access to the original EGA-archive repository, development has continued in a new forked repository.
 
 The latest and actively maintained version of the tools can be found in the [following repository](https://github.com/mrueda/beacon2-ri-tools).
 
@@ -90,9 +92,9 @@ Then, execute the following commands to build the container (~1.1G):
 docker buildx build -t crg/beacon2_ri:latest . # build the container (~1.1G)
 ```
 
-##### Original Version: EGA-archive (unmaintained)
+!!! Warning "About `mongoimport`"
 
-The original version of the tools is now deprecated and unmaintained. Due to restricted access to the original EGA-archive repository, development has continued in a new forked repository. For the deprecated version, you can still use the same commands as above but with the following [EGA-archive repository](https://github.com/EGA-archive/beacon2-ri-tools).
+    The `beacon2-ri-tools` container comes equipped with the `mongoimport` utility.  If the `beacon2-ri-tools` container is not installed, it's necessary to [install mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/) separately to facilitate CLI-based data imports.
 
 !!! Important
     Docker containers are fully isolated. If you think you'll have to mount a volume to the container, please read the section [Mounting Volumes](https://docs.docker.com/storage/volumes/) before proceeding further.
@@ -139,10 +141,10 @@ Now you should have the two things downloaded, installed and set up: the `beacon
 
 You can start transforming your data to BFF and loading it to the database following the [Data beaconization tutorial](https://b2ri-documentation.readthedocs.io/en/latest/tutorial-data-beaconization/).
 
-## Non containerized (data ingestion tools)
+## Non containerized (`beacon2-ri-tools`)
 
 !!! Warning "Message"
-    This alternative requires a few more steps than the containerized one, but it gives the deployer more control over the tools.
+    This alternative requires a few more steps than the containerized one, but it gives the deployer more control over the tools. Only recommended for **advanced** users.
 
 We will download the **data ingestion tools** from [this](https://github.com/mrueda/beacon2-ri-tools) repository. Please follow the instructions provided in the [README](https://github.com/mrueda/beacon2-ri-tools#non-containerized).
 

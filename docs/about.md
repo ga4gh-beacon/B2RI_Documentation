@@ -4,9 +4,9 @@ The **Beacon v2 Reference Implementation Implementation** has been developed at 
 
 ## B2RI Developers
 
-  * [Roberto Ariosa](https://github.com/MrRobb)  (MongoDB and REST API)
+  * [Roberto Ariosa](https://github.com/MrRobb)  (REST API)
   * [Mauricio Moldes](https://github.com/MauricioMoldes) (Containerization of B2RI)
-  * [Manuel Rueda, PhD](https://github.com/mrueda) (Data ingestion tools, BFF Genomic Variations Browser, Synthetic dataset and MongoDB)
+  * [Manuel Rueda, PhD](https://github.com/mrueda) (Data ingestion tools, Synthetic dataset)
 
 ## B2RI Documentation author:
 

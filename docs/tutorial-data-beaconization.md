@@ -102,8 +102,8 @@ Congratulations! Now you can go to STEP 2.
 Now that you have processed the metadata, it's time to process the **VCF** file.
 
 !!! Important "About VCF types"
-    Currently, the B2RI only handles VCFs coming from **DNAseq** experiments (WES, WGS, gene panels, etc.). The VCFs can be _single_ or _multisample_. <br />
-    At the time of writting this, **structural variants** in VCF are not being parsed (there is scout working group currently developing Beacon v2 specifications for structural variants). We hope to implement this feature in future versions. 
+    Currently, the B2RI only handles VCFs coming from **DNAseq** experiments (e.g., WES, WGS, gene panels, etc.). The VCFs can be either _single_ or _multisample_. <br />
+    As of this writing, **structural variants** in VCF files are not being parsed. (There is a Scout working group currently developing Beacon v2 specifications for structural variants.) We hope to implement this feature in future versions. **Copy Number Variations** are not supported. The `variation` property uses the `LegacyVariation` sub-property.
 
 The VCF file has to be gzipped (or bgzipped). What we are going to do it's to annotate it (or re-annotate it if your file already has annotations) with **SnpEff and SnpSift** and transform the format so that it becames the 7th BFF file (i.e., `genomicVariationsVcf.json`). 
 

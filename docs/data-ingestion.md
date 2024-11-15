@@ -26,7 +26,7 @@ We have chosen **MongoDB** as a _de facto_ database as it works directly with JS
 
 ![Data Ingestion 2](img/data-ingestion-2.png)
 
-For genomic data, the B2RI has a tool that takes as input a [VCF](https://en.wikipedia.org/wiki/Variant_Call_Format) file and uses [BCFtools](http://samtools.github.io/bcftools/bcftools.html) and [SnpEff and SnpSift](http://pcingola.github.io/SnpEff) to annotate it. Once annotated, the tool transforms VCF data to the `genomicVariations` entry type in the Beacon v2 Models and serializes it to a JSON file.
+For genomic data, the B2RI has a tool that takes as input a [VCF](https://en.wikipedia.org/wiki/Variant_Call_Format) file and uses [BCFtools](http://samtools.github.io/bcftools/bcftools.html) and [SnpEff and SnpSift](http://pcingola.github.io/SnpEff) to **annotate it**. Once annotated, the tool transforms VCF data to the `genomicVariations` entry type in the Beacon v2 Models and serializes it to a JSON file.
 
 ## 3 - Load data into MongoDB
 
@@ -45,6 +45,8 @@ The data ingestion tools include a few utilities that will help you with data pr
 * [bff-api](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_api)
 * [bff-queue](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_queue)
 * [bff-validator](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_validator)
+
+On top of that, the `beacon2-ri-tool` repo includes the [CINECA synthetic dataset](synthetic-dataset.md).
                                                                                                         
 ## BFF Genomic Variations Browser
 

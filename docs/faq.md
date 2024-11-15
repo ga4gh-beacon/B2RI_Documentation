@@ -77,7 +77,7 @@ Yes, yet this may slow down a bit the ingestion itself.
 
 ### When performing incremental uploads, do I need to re-index MongoDB?
 
-Nope. The indexes are created during the first load of key/values and updated automatically on every insert operation. Next attempts for re-indexing are simply [discarded by MongoDB](https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndex/?_ga=2.111853831.262597912.1652622239-541609842.1652622239) (i.e., the operation is idempotent).
+Nope. The indexes are created during the first load of key/values and updated automatically on every insert operation. Next attempts for re-indexing are simply [discarded by MongoDB](https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndex/?_ga=2.111853831.262597912.1652622239-541609842.1652622239) (i.e., the operation is **idempotent**).
 
 ### For the CINECA synthetic cohort EUROPE UK1, I could only download the VCF for `chr22` from the installation links. Can I get the VCF for whole genome?
 
@@ -89,9 +89,9 @@ Yes, but you need to request access and download it from the [EGA](https://ega-a
 
 We recommend [Curl](https://curl.se).
 
-### Are aternative schemas supported?
+### Why are the API queries slow?
 
-_A priori_, [Beacon v2](http://docs.genomebeacons.org/) specification allows for alternative schema for the responses (e.g., [Phenopackets](https://phenopacket-schema.readthedocs.io/en/latest)). At this time (Apr-2022), this option is not supported by the Beacon v2 API.
+Ensure that you create an index for **single fields** and **text fields** in MongoDB. Without proper indexing, query performance will be significantly slower.
 
 ### Is the response data encrypted?
 

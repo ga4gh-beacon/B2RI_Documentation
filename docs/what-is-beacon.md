@@ -2,7 +2,7 @@
 
 Beacon v2 is an **API specification** established by the **Global Alliance for Genomics and Health initiative** ([GA4GH](https://www.ga4gh.org)) that defines an open standard for federated discovery of genomic and phenotypic data in biomedical research and clinical applications. 
 
-The [current version of the specification is v2](https://github.com/ga4gh-beacon/beacon-v2) and consists of two components, the _Framework_ and the _Models_. The **Framework**  defines the format for the requests and responses, whereas the **Models** define the [structure](https://json-schema.org/specification-links.html#2020-12) of the biological data response. The overall function of these two components is to provide the instructions to design a **REST API** (REpresentational State Transfer Application Programming Interface) via **OpenAPI** Specification. 
+The [current version of the specification is v2](https://github.com/ga4gh-beacon/beacon-v2) and consists of two components, the _Framework_ and the _Models_. The **Framework**  defines the format for the requests and responses, whereas the **Models** define the [structure](https://json-schema.org/specification-links.html#2020-12) of the biological data response. The overall function of these two components is to provide the instructions to design a **REST API** (REpresentational State Transfer Application Programming Interface).
 
 ![Framework and Models](img/framework-and-models.png)
 

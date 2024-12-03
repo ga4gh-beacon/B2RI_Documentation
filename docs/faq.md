@@ -125,10 +125,6 @@ Additionally, OMOP CDM instances in PostgreSQL can be converted to BFF data exch
 
 Yep. We recommend checking our Github repositories ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools) and [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)) and downloading the latest version. If the version it's in GitHub is because it passed our tests and it's ready to be used. In principle, a simple `git pull` will do the update for both containerized and non-containerized versions.
 
-### Can I contribute to the GitHub repositories?
-
-Please contact the [authors](./about.md).
-
 ### How do I cite B2RI?
 
 !!! Note "Citation"

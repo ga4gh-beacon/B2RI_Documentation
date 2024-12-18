@@ -9,45 +9,39 @@ Data ingestion consists of 3 steps:
 !!! Important
     Here we will give you an overview of the tree steps. For an in depth explanation, please follow this [tutorial](./tutorial-data-beaconization.md).
 
-## 1 - Transforming metadata (including phenotypic data)
+## 1. Transforming Metadata (Including Phenotypic Data)
 
 ![Data Ingestion 1](img/data-ingestion-1.png)
 
-The overall idea is that the **B2RI** will facilitate transforming your data (sequencing methodology, bioinformatics tools, phenotypic data, etc.) to the format of the [Beacon v2 Models](http://docs.genomebeacons.org/).
+**B2RI** facilitates transforming your data—such as sequencing methodologies, bioinformatics tools, and phenotypic data—into the format defined by the [Beacon v2 Models](http://docs.genomebeacons.org/), using the [bff-validator](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_validator) utility.
 
-The [Beacon v2 Models](http://docs.genomebeacons.org/) define the default data structure (or schema) for the biological data responses. The Models are defined using [JSON Schema](https://json-schema.org) and the information is structured in a hierarchical form. The schemas consist of multiple properties or [terms](http://docs.genomebeacons.org/schemas-md/beacon_terms/) (a.k.a., objects). 
+The [Beacon v2 Models](http://docs.genomebeacons.org/) establish the default data structure (schema) for biological data responses. These models are defined using [JSON Schema](https://json-schema.org) and organized hierarchically. The schemas consist of multiple properties or [terms](http://docs.genomebeacons.org/schemas-md/beacon_terms/) (also known as objects).
 
-We have chosen **MongoDB** as a _de facto_ database as it works directly with JSON files. This way, we can store the data directly in the database according to the [Beacon v2 Models](http://docs.genomebeacons.org/) and provide responses (Beacon v2 compliant) without the need of re-mapping the data at the API level.
+We have chosen **MongoDB** as a _de facto_ database because it natively supports JSON documents. This allows us to store data directly in the database according to the [Beacon v2 Models](http://docs.genomebeacons.org/) and provide Beacon v2 compliant responses without needing to re-map the data at the API level.
 
-!!! Warning "About alternative response schemas for biological data"
-    _A priori_, [Beacon v2](http://docs.genomebeacons.org/) specification allows for alternative schemas for the responses (e.g., [Phenopackets](https://phenopacket-schema.readthedocs.io/en/latest)). At this time (Apr-2022), this option is not supported by the Beacon v2 API. 
-
-## 2 - Transforming genomic variations (VCF)
+## 2. Transforming Genomic Variations (VCF)
 
 ![Data Ingestion 2](img/data-ingestion-2.png)
 
-For genomic data, the B2RI has a tool that takes as input a [VCF](https://en.wikipedia.org/wiki/Variant_Call_Format) file and uses [BCFtools](http://samtools.github.io/bcftools/bcftools.html) and [SnpEff and SnpSift](http://pcingola.github.io/SnpEff) to **annotate it**. Once annotated, the tool transforms VCF data to the `genomicVariations` entry type in the Beacon v2 Models and serializes it to a JSON file.
+For genomic data, **B2RI** provides a tool (`beacon`) that takes a [VCF](https://en.wikipedia.org/wiki/Variant_Call_Format) file as input and uses [BCFtools](http://samtools.github.io/bcftools/bcftools.html), [SnpEff](http://pcingola.github.io/SnpEff), and SnpSift to **annotate** the data. Once annotated, the tool transforms the VCF data into the `genomicVariations` entry type defined by the Beacon v2 Models and serializes it into a JSON file.
 
-## 3 - Load data into MongoDB
+## 3. Loading Data into MongoDB
 
 ![Data Ingestion 3](img/data-ingestion-3.png)
 
-Once transformed, the JSON files conform what we call the **Beacon Friendly Format** (BFF).
+After transformation, the JSON files adhere to what we call the **Beacon Friendly Format** (BFF).
 
-The last step is loading the **BFF** files into a [MongoDB](https://www.mongodb.com) instance. 
+The final step is loading the **BFF** files into a [MongoDB](https://www.mongodb.com) instance. **B2RI** provides a tool (`beacon`) that loads BFF files into MongoDB. Once loaded, these files are referred to as **collections**.
 
-The **B2RI** has a tool that loads BFF files to MongoDB. Once loaded, we will refer to them as **collections**.
+## Included Utilities
 
-## Included utilities
-
-The data ingestion tools include a few utilities that will help you with data processing and beyond:
+In addition to the `beacon` script and `bff-validator`, the data ingestion tools include several utilities to assist with data processing and beyond:
 
 * [bff-api](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_api)
 * [bff-queue](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_queue)
-* [bff-validator](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_validator)
 
-On top of that, the `beacon2-ri-tool` repo includes the [CINECA synthetic dataset](synthetic-dataset.md).
-                                                                                                        
+Furthermore, the `beacon2-ri-tools` repository includes the [CINECA synthetic dataset](synthetic-dataset.md).
+
 ## BFF Genomic Variations Browser
 
 !!! Warning "Important"

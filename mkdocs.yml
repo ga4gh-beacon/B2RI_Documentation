@@ -18,8 +18,8 @@ nav:
   - 'Download & Installation': download-and-installation.md
   - Components:
       - Data ingestion: data-ingestion.md
-      - MongoDB: download-and-installation#mongodb-installation
-      - API (Queries): api.md
+      - 'Database (MongoDB)': https://github.com/mrueda/beacon2-ri-tools/blob/main/docker/README.md#additional-instructions-for-methods-1-and-2
+      - Beacon v2 API: api.md
       - Synthetic dataset: synthetic-dataset.md
   - Tutorial:
       - Data beaconization: tutorial-data-beaconization.md

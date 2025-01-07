@@ -47,65 +47,81 @@ Furthermore, the `beacon2-ri-tools` repository includes the [CINECA synthetic da
 !!! Warning "Important"
     BFF Genomic Variations Browser **is not a full UI** for Beacon v2 as it does not allow for cross-queries to other collections (e.g., individuals).
 
-**BFF Genomic Variations Browser** enables user-friendly visualization of ```genomicVariations``` documents (stored as a JSON array) via dynamic tables embedded in HTML.
+---
 
-![BFF GV Browser](img/BFF-genomic-variations-browser.png)
+### Overview  
+The **BFF Genomic Variations Browser** provides a straightforward way to visualize `genomicVariations` documents (stored as a JSON array) through dynamic, HTML-embedded tables.
 
-The browser's [developer](./about.md) has first-hand experience in **Clinical Genomics** and thought that the HTML will be a nice addition for some users.
+![BFF Genomic Variations Browser](img/BFF-genomic-variations-browser.png)
 
-BFF Genomic Variations Browser only displays a subset o variants (i.e., those having **HIGH** value on the **Annotation Impact** field).
+The browser is designed to facilitate the analysis of variants with a **HIGH** impact annotation value, offering a convenient tool for targeted exploration.
 
-The variants are displayed as HMTL-tabs from gene lists (a.k.a. gene panels). These **gene panels** are plain text files consisting of one column (name of genes). The extension is '.lst'. By default, they're located under ```$beacon_path/browser/data```, but you can specify a different location via the parameter ```paneldir``` in the ```config.yaml``` file. Feel free to create and add **your own panels**.
+---
 
-BFF Genomic Variations Browser will display the filtered variants according to all ```.lst``` files in ```paneldir``` folder. 
+### How to Run
 
-The resulting HTML are **local**. They load a local JSON file and display it as a searchable table. 
+To enable the BFF Genomic Variations Browser, set the following in your parameters file:
 
-![Screenshoot of the BFF Genomic Variations Browser](img/snapshot-BFF-genomic-variations-browser.png)
-
-The table allows for **columns re-ordering** and the **search** box accepts complex _regex_ e.g. ```rs12(3|4) (tp53|ace2) splice```.
-
-Now, importing local JSON files (w/ [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming))) is restricted by web browsers (by default). It's a security thing and makes sense most of the times.
-However, it has no sense here and thus we will bypass this "functionality". It's harmless.
- 
-To overcome this issue we provide several alternatives, ranked by the level of difficulty.
-
-1 - The simplest option is to use ***chromium-browser*** from the command line and add the flag ```--allow-file-access-from-files```, like this:
-
-```
-$ sudo apt install chromium-browser    # To install chromium in Debian-based distribution
-
-$ cd beacon_XXX/browser   # where XXX is the job ID
-
-$ chromium-browser --allow-file-access-from-files XXX.html
+```yaml
+bff2html: true
 ```
 
-2 - The second simplest option is to use ***firefox*** and disable the restriction with the boolean ```privacy.file_unique_origin``` located in ```about:config``` (address bar). 
+Once the process is complete, the results will be available in the `<job_id>/vcf/browser` directory.
 
-3 - The third option is to **load the HTML via http(s) protocol**. There are [quite a few ways](https://gist.github.com/willurd/5720255) of doing this (w/o resorting to apache2/nginx).
+### Features  
 
-Below I am displaying a few:
+1. **Gene Panel Support**  
+   - Variants are displayed in **HTML tabs** organized by gene panels.  
+   - **Gene Panels**: Simple text files with a `.lst` extension, containing a single column of gene names.  
+   - **Default Directory**: `"$beacon_path/browser/data"`.  
+   - **Customization**: You can modify the directory using the `paneldir` parameter in the `config.yaml` file.  
+   - **Extendability**: Additional gene panels can be created and added.
 
-* With Php
+2. **Dynamic Tables**  
+   - The browser generates searchable and sortable tables directly in HTML.  
+   - **Key Features**:
+     - Column reordering.  
+     - Advanced search with regular expressions (e.g., `rs12(3|4) (tp53|ace2) splice`).  
 
+![BFF Genomic Variations Browser - Table View](img/snapshot-BFF-genomic-variations-browser.png)
+
+3. **Filtered Display**  
+   - Only variants with **HIGH** annotation impact values are included.  
+   - Variants are filtered and displayed according to the `.lst` files in the `paneldir` folder.
+
+---
+
+### Enabling Graphics in the Container  
+
+To enable graphical display when running in a Docker container, use the following commands:  
+
+```bash
+xhost +local:docker
+docker run -tid --rm   -e DISPLAY=$DISPLAY   -v /tmp/.X11-unix:/tmp/.X11-unix   --name beacon2-ri-tools cnag/beacon2-ri-tools:latest
+xhost -local:docker
 ```
-$ php -S localhost:8000
-```
 
-* With Ruby
+---
 
-```
-$ ruby -run -e httpd . -p 8080
-```
+### Loading the Browser  
 
-* With Python 3
+To view the browser:  
 
-```
+1. Make sure you are in the results directory (e.g., `<job_id>/vcf/browser`) and start Python's built-in HTTP server:  
+
+```bash
 python3 -m http.server
-```
+```  
 
-* Others
+2. Open a web browser and navigate to:  
 
-```
-Mojolicius, Node.js and other web frameworks also allow for this. 
-```
+`http://0.0.0.0:8000`
+
+3. Load the desired `job_id.html` file.
+
+---
+
+### Additional Information  
+
+- The generated HTML files are **local** and rely on a JSON file to display data.  
+- By default, the browser processes all `.lst` files in the `paneldir` folder for filtering and organizing variants. 

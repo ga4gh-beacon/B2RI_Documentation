@@ -95,7 +95,7 @@ Once the process is complete, the results will be available in the `<job_id>/vcf
 
 To view the HTML:  
 
-1. Make sure you are in the results directory (e.g., `<job_id>/vcf/browser`) and start Python's built-in HTTP server:  
+1. Make sure you are in the results directory (e.g., `<job_id>/browser`) and start Python's built-in HTTP server:  
 
 ```bash
 python3 -m http.server 8000 --bind 0.0.0.0

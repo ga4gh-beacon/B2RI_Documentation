@@ -83,34 +83,22 @@ Once the process is complete, the results will be available in the `<job_id>/vcf
      - Column reordering.  
      - Advanced search with regular expressions (e.g., `rs12(3|4) (tp53|ace2) splice`).  
 
-![BFF Genomic Variations Browser - Table View](img/snapshot-BFF-genomic-variations-browser.png)
-
-3. **Filtered Display**  
-   - Only variants with **HIGH** annotation impact values are included.  
+3. **Filtered Display**
+   - Only variants with **HIGH** annotation impact values are included.
    - Variants are filtered and displayed according to the `.lst` files in the `paneldir` folder.
 
----
-
-### Enabling Graphics in the Container  
-
-To enable graphical display when running in a Docker container, use the following commands:  
-
-```bash
-xhost +local:docker
-docker run -tid --rm   -e DISPLAY=$DISPLAY   -v /tmp/.X11-unix:/tmp/.X11-unix   --name beacon2-ri-tools cnag/beacon2-ri-tools:latest
-xhost -local:docker
-```
+![BFF Genomic Variations Browser - Table View](img/snapshot-BFF-genomic-variations-browser.png)
 
 ---
 
-### Loading the Browser  
+### Loading the HTML  
 
-To view the browser:  
+To view the HTML:  
 
 1. Make sure you are in the results directory (e.g., `<job_id>/vcf/browser`) and start Python's built-in HTTP server:  
 
 ```bash
-python3 -m http.server
+python3 -m http.server 8000 --bind 0.0.0.0
 ```  
 
 2. Open a web browser and navigate to:  

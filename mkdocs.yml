@@ -1,7 +1,7 @@
 site_name: 'B2RI Documentation'
 site_description: 'Beacon v2 Reference Implementation Documentation'
 site_author: 'Manuel Rueda, PhD'
-copyright: '&copy; Copyright 2022-2024, B2RI Documentation Contributors'
+copyright: '&copy; Copyright 2022-2025, B2RI Documentation Contributors'
 repo_name: 'B2RI_Documentation'
 
 extra_css: [css/theme_overrides.css]

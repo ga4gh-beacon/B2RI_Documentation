@@ -37,79 +37,8 @@ The final step is loading the **BFF** files into a [MongoDB](https://www.mongodb
 
 In addition to the `beacon` script and `bff-validator`, the data ingestion tools include several utilities to assist with data processing and beyond:
 
+* [bff-browser](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_browser)
 * [bff-api](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_api)
 * [bff-queue](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_queue)
 
 Furthermore, the `beacon2-ri-tools` repository includes the [CINECA synthetic dataset](synthetic-dataset.md).
-
-## BFF Genomic Variations Browser
-
-!!! Warning "Important"
-    BFF Genomic Variations Browser **is not a full UI** for Beacon v2 as it does not allow for cross-queries to other collections (e.g., individuals).
-
----
-
-### Overview  
-The **BFF Genomic Variations Browser** provides a straightforward way to visualize `genomicVariations` documents (stored as a JSON array) through dynamic, HTML-embedded tables.
-
-![BFF Genomic Variations Browser](img/BFF-genomic-variations-browser.png)
-
-The browser is designed to facilitate the analysis of variants with a **HIGH** impact annotation value, offering a convenient tool for targeted exploration.
-
----
-
-### How to Run
-
-To enable the BFF Genomic Variations Browser, set the following in your parameters file:
-
-```yaml
-bff2html: true
-```
-
-Once the process is complete, the results will be available in the `<job_id>/vcf/browser` directory.
-
-### Features  
-
-1. **Gene Panel Support**  
-   - Variants are displayed in **HTML tabs** organized by gene panels.  
-   - **Gene Panels**: Simple text files with a `.lst` extension, containing a single column of gene names.  
-   - **Default Directory**: `"$beacon_path/browser/data"`.  
-   - **Customization**: You can modify the directory using the `paneldir` parameter in the `config.yaml` file.  
-   - **Extendability**: Additional gene panels can be created and added.
-
-2. **Dynamic Tables**  
-   - The browser generates searchable and sortable tables directly in HTML.  
-   - **Key Features**:
-     - Column reordering.  
-     - Advanced search with regular expressions (e.g., `rs12(3|4) (tp53|ace2) splice`).  
-
-3. **Filtered Display**
-   - Only variants with **HIGH** annotation impact values are included.
-   - Variants are filtered and displayed according to the `.lst` files in the `paneldir` folder.
-
-![BFF Genomic Variations Browser - Table View](img/snapshot-BFF-genomic-variations-browser.png)
-
----
-
-### Loading the HTML  
-
-To view the HTML:  
-
-1. Make sure you are in the results directory (e.g., `<job_id>/browser`) and start Python's built-in HTTP server:  
-
-```bash
-python3 -m http.server 8000 --bind 0.0.0.0
-```  
-
-2. Open a web browser and navigate to:  
-
-`http://0.0.0.0:8000`
-
-3. Load the desired `job_id.html` file.
-
----
-
-### Additional Information  
-
-- The generated HTML files are **local** and rely on a JSON file to display data.  
-- By default, the browser processes all `.lst` files in the `paneldir` folder for filtering and organizing variants. 

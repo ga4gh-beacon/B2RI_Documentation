@@ -79,9 +79,9 @@ Yes, yet this may slow down a bit the ingestion itself.
 
 Nope. The indexes are created during the first load of key/values and updated automatically on every insert operation. Next attempts for re-indexing are simply [discarded by MongoDB](https://www.mongodb.com/docs/manual/reference/method/db.collection.createIndex/?_ga=2.111853831.262597912.1652622239-541609842.1652622239) (i.e., the operation is **idempotent**).
 
-### For the CINECA synthetic cohort EUROPE UK1, I could only download the VCF for `chr22` from the installation links. Can I get the VCF for whole genome?
+### Where do I get the WGS VCF for the he CINECA synthetic cohort EUROPE UK1?
 
-Yes, but you need to request access and download it from the [EGA](https://ega-archive.org/datasets/EGAD00001006673). The VCF file contains WGS for 2,504 fake individuals (~20G). See more information [here](./synthetic-dataset.md). 
+You can download [chr22](https://github.com/mrueda/beacon2-ri-tools/tree/main/CINECA_synthetic_cohort_EUROPE_UK1#external-files-crg-public-ftp-site) from our FTP site. If you need the WGS, you must request access and download it from the [EGA](https://ega-archive.org/datasets/EGAD00001006673). The VCF file contains WGS data for 2,504 synthetic individuals (~20 GB). For more information, see [this document](./synthetic-dataset.md).
 
 ## Beacon v2 API 
 
@@ -105,16 +105,6 @@ By default, the API will start as `http`. The request/response can be encripted 
 
 The included [CINECA_synthetic_cohort_EUROPE_UK1](https://www.cineca-project.eu/cineca-synthetic-datasets) dataset has [CC-BY](https://en.wikipedia.org/wiki/Creative_Commons_licens) license.
 
-### Does it come with an UI (user interface)? 
-
-The simple answer is no. All tools are `command-line` based. But, we added a [browser](./data-ingestion.md#bff-genomic-variations-browser) to visualize the contents of `genomicVariations` collection. This simple tool will (likely) cover many of the typical needs of a clinical geneticist/bioinformatician.
-
-The long answer is that at [CRG](https://www.crg.eu/) we're working on a full UI to work on top of the REST API. 
-
-### Does B2RI include tools to create a Beacon Network?
-
-Nope at this moment (Apr-2022). Currently, there is a Beacon scout team actively developing Beacon v2 Network API specification. See [Beacon v1 Network API specification](https://github.com/CSCfi/beacon-network) as a reference.
-
 ### I am using a SQL-based database, can I still use your Reference Implementation?
 
 The issue with using a SQL-based database is that, if you want to be **Beacon v2 response _compliant_**, you will need to convert your tables-based data to the JSON Schema of the [Beacon v2 Models](http://docs.genomebeacons.org). Intrepid implementers can perform this transformation at the API level. However, a much simpler alternative (and one commonly seen in healthcare systems) is to perform a `dump` (data export) of the subset of data you want to share and then use [beacon2-ri-tools](tutorial-data-beaconization.md) to convert this tabular data to Beacon v2 format and use the included REST API. So yes, if you follow this path you will still be using our Reference Implementation.
@@ -123,7 +113,7 @@ Additionally, OMOP CDM instances in PostgreSQL can be converted to BFF data exch
 
 ### Should I update to the `latest` version?
 
-Yep. We recommend checking our Github repositories ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools) and [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)) and downloading the latest version. If the version it's in GitHub is because it passed our tests and it's ready to be used. In principle, a simple `git pull` will do the update for both containerized and non-containerized versions.
+Yep. We recommend checking our Github repositories ([beacon2-ri-tools](https://github.com/mrueda/beacon2-ri-tools) and [beacon2-ri-api](https://github.com/EGA-archive/beacon2-ri-api)) and downloading the latest version.
 
 ### How do I cite B2RI?
 

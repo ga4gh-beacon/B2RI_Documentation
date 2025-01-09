@@ -89,6 +89,3 @@ See installation intructions [here](https://github.com/EGA-archive/beacon2-ri-ap
     This alternative requires a few more steps than the containerized one, but it gives the deployer more control over the tools. Only recommended for **advanced** users.
 
 See instructions [here](https://github.com/mrueda/beacon2-ri-tools/blob/main/non-containerized/README.md). 
-
-!!! Danger "External Tools Architecture Alert"
-    Please note that the external tools are compiled specifically for `x86-64` architecture. Consequently, they are not compatible with newer ARM-based Macs.

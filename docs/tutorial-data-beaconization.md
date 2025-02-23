@@ -107,16 +107,28 @@ Now that you have processed the metadata, it's time to process the **VCF** file.
 
 The VCF file has to be gzipped (or bgzipped). What we are going to do it's to annotate it (or re-annotate it if your file already has annotations) with **SnpEff and SnpSift** and transform the format so that it becames the 7th BFF file (i.e., `genomicVariationsVcf.json`). 
 
-    ./beacon vcf   -n 1    -i input.vcf.gz -p param_file
+    ./beacon vcf   -t 1    -i input.vcf.gz -p param_file
          |      |      |         |              |
-         exe    mode   #cores   <vcf>           parameters file (optional)
+         exe    mode   #threads   <vcf>           parameters file (optional)
 
 Here we are using `beacon` script in mode ***vcf***. This mode is one of the three available [vcf|mongodb|full]. 
 
 The parameters file is optional if you want to use the default value (hg19) but it is needed if you want to change them. Note that you must provide the **reference genome** (unless you're using `hg19` which is the default one) that was used to create your VCF. See all the script options [here](https://github.com/mrueda/beacon2-ri-tools#how-to-run-beacon).
 
-The `param_file` should look something like this:
-genome:hs37d5g
+The `param_file` (`YAML`) should look something like this:
+
+```yaml
+---
+genome: hs37
+```
+
+If you want to create an `HTML` file to be later viewed with the **BFF Browser** utility your `YAML` file should look like this:
+
+```yaml
+---
+genome: hs37
+bff2html: true
+```
 
 !!! Important
     **Note about timing**: We made the script _as fast as we possibly could_ with a scripting language. In this regard, the processing time scales linearly with the #variants, but it's also affected by the #samples. For instance, 1M variants with 2,500 samples will take around ~20-25 min.

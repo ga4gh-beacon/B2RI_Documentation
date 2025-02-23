@@ -35,10 +35,6 @@ The final step is loading the **BFF** files into a [MongoDB](https://www.mongodb
 
 ## Included Utilities
 
-In addition to the `beacon` script and `bff-validator`, the data ingestion tools include several utilities to assist with data processing and beyond:
-
-* [bff-browser](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_browser)
-* [bff-api](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_api)
-* [bff-queue](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/bff_queue)
+In addition to the `beacon` script and `bff-validator`, the data ingestion tools include several [utilities](https://github.com/mrueda/beacon2-ri-tools/tree/main/utils/README.md) to assist with data processing and beyond:
 
 Furthermore, the `beacon2-ri-tools` repository includes the [CINECA synthetic dataset](synthetic-dataset.md).

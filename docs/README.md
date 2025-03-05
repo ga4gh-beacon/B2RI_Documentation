@@ -1,8 +1,8 @@
 # Beacon v2 Reference Implementation Documentation
 
-!!! Important "New link to the Beacon v2 Reference Implementation API documentation"
+![#f03c15] !!! Important "New link to the Beacon v2 Reference Implementation API documentation"
 
-    This page is no longer up to date for the Beacon v2 Reference Implementation API. Please, [visit the updated site](https://b2ri-documentation-demo.ega-archive.org/) for the latest details on how to use and deploy it. 
+    This page is no longer up to date for the Beacon v2 Reference Implementation API. Please, [visit the updated site](https://b2ri-documentation-demo.ega-archive.org/) for the latest details on how to use and deploy it. `#f03c15`
 
 !!! Important "Approved GA4GH Standard"
 
